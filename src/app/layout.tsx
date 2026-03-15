@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+import { Inter, Cairo } from 'next/font/google';
+import './globals.css';
 
-export const metadata: Metadata = {
-  title: "Visit Oman",
-  description: "Discover and plan your journey through Oman",
-};
+const inter = Inter({ subsets: ['latin'] });
+const cairo = Cairo({ 
+  subsets: ['arabic'],
+  variable: '--font-cairo',
+});
 
 export default function RootLayout({
   children,
@@ -12,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="ltr">
-      <body>{children}</body>
+      <body className={`${inter.className} ${cairo.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

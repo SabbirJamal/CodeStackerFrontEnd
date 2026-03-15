@@ -1,15 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Inter, Cairo } from 'next/font/google';
 import * as React from 'react';
-import PageTransition from '@/components/PageTransition'; // Import the transition component
-import '../globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
-const cairo = Cairo({ 
-  subsets: ['arabic'],
-  variable: '--font-cairo',
-});
+import PageTransition from '@/components/PageTransition';
 
 export default async function LocaleLayout({
   children,
@@ -23,11 +15,11 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className={`${inter.className} ${cairo.variable}`} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-        <PageTransition>
+      <PageTransition>
+        <div dir={locale === 'ar' ? 'rtl' : 'ltr'}>
           {children}
-        </PageTransition>
-      </div>
+        </div>
+      </PageTransition>
     </NextIntlClientProvider>
   );
 }
