@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Visit Oman - Discover & Plan
+This is a bilingual (English/Arabic) tourism platform for Oman that helps visitors discover destinations and generate optimized travel itineraries entirely in the browser.
+This website basically helps users/tourists to get a guide on what places to visit in Oman by selecting there budget, crowd intensity, month of travel. 
 
-## Getting Started
+Project Overview
+This project was built for the CODESTACKER 2026 Frontend Development Challenge. It consists of two main parts:
+  1.Marketing Site (SSR)** - Destination discovery with bilingual support
+  2.Itinerary Generator (CSR)** - Intelligent trip planning with constraint-based optimization
 
-First, run the development server:
+Techs/tools used
+ -Framework: Next.js 15 with App Router
+ -Language: TypeScript
+ -Styling: Tailwind CSS
+ -State Management: Zustand with localStorage persistence
+ -Maps: Leaflet + React-Leaflet
+ -Internationalization: next-intl
+ -Utilities: date-fns, uuid
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ Features
+ This project aimed to complete 2 main features (competition requriments)
+   Part 1: Marketing Site
+     -Bilingual (English/Arabic) with RTL support
+     -Landing page with hero, categories, featured destinations
+     -Destination browsing with filters (category, region, season)
+     -URL query parameters for shareable filters
+     -Destination detail pages with maps
+     -Save interests with localStorage persistence
+     -Saved interests page
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   Part 2: Itinerary Generator
+     -User preferences form (duration, budget, month, intensity)
+     -Multi-objective scoring with normalized weights
+     -Region-level planning with day allocation
+     -Daily routing with hard constraints:
+        -Max 250km driving distance per day
+        -Max 8 hours visit time per day
+        -Stop rhythm (long/short alternation)
+        -Category variety
+        -Intensity-based stop limits
+     -Haversine distance calculations
+     -2-opt optimization for route improvement
+     -Budget calculations (fuel, tickets, food, hotel)
+     -Interactive maps with route visualization
+     -Explanation panel for stop selections
+     -Full persistence across refresh
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Explanation of Algorithm
+    Scoring Weights
+        | Component       | Weight | Justification                            |
+        |-----------------|--------|------------------------------------------|
+        | Interest Match  | 30%    | User preferences should drive selections |
+        | Season Fit      | 25%    | Timing is crucial for experience quality |
+        | Crowd Level     | -15%   | Penalty for overcrowded locations        |
+        | Ticket Cost     | -15%   | Budget consciousness                     |
+        | Detour Penalty  | -10%   | Efficiency matters                       |
+        | Diversity Bonus | 5%     | Encourage variety                        |
+        All components are normalized to [0,1] before weighting.
+    
+    Optimization Approach
+        2-opt local search was implemented for route optimization as:
+          -Deterministic (no randomness)
+          -Guarantees improvement over greedy solution
+          -Computationally feasible in browser
+          -Well-suited for TSP-like routing problems
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    Constrains Implementation
+        -Daily distance: Hard cap at 250km using Haversine formula
+        -Visit time: Sum of durations + travel time ≤ intensity limit
+        -Stop rhythm: Long stops (>90min) cannot be adjacent
+        -Category variety: Same category ≤ 2 times per day
+        -Region consistency: Each day starts/ends in same region
 
-## Learn More
+Pre-requisites required
+-node.js v20.18.3 or later
+-npm or yarn
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Installation (```bash)
+1. git clone []
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Navigate to project (code could be different based on file location)
+2. cd fecomp
 
-## Deploy on Vercel
+# Install required dependencies for running the project
+3. npm install
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Run development server
+4. npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Go to browser abd paste the url that was achieved for bash or copy paste this url `http://localhost:3000/en`
+
+
+Addition to the main website, there are 4 other pages that was used for testing. 
+These are the different algorithms use but not combined into 1
+-`/en/distance-test` - Haversine distance calculator
+-`/en/score-test` - Multi-objective scoring
+-`/en/region-test` - Region allocation
+-`/en/routing-test` - Daily routing with constraints
+
+ Performance Considerations
+    -All calculations run client-side (no API calls)
+    -Haversine formula is O(n²) but n ≤ 5 stops/day
+    -2-opt optimization runs in O(n³) but n is small
+    -Dynamic imports for map components

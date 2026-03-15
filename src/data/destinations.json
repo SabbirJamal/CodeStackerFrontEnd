@@ -1,0 +1,232 @@
+{
+  "destinations": [
+    {
+      "id": "sultan-qaboos-grand-mosque",
+      "name": {
+        "en": "Sultan Qaboos Grand Mosque",
+        "ar": "جامع السلطان قابوس الأكبر"
+      },
+      "lat": 23.5842,
+      "lng": 58.3888,
+      "image": "/images/destinations/sultan-mosque.jpg",
+      "region": {
+        "en": "muscat",
+        "ar": "مسقط"
+      },
+      "categories": ["culture"],
+      "avg_visit_duration_minutes": 90,
+      "ticket_cost_omr": 0,
+      "recommended_months": [10, 11, 12, 1, 2, 3, 4],
+      "crowd_level": 4
+    },
+    {
+      "id": "wadi-shab",
+      "name": {
+        "en": "Wadi Shab",
+        "ar": "وادي شاب"
+      },
+      "lat": 23.1819,
+      "lng": 58.7919,
+      "image": "/images/destinations/wadi-shab.jpg",
+      "region": {
+        "en": "sharqiya",
+        "ar": "الشرقية"
+      },
+      "categories": ["nature"],
+      "avg_visit_duration_minutes": 180,
+      "ticket_cost_omr": 0,
+      "recommended_months": [10, 11, 12, 1, 2, 3, 4],
+      "crowd_level": 5
+    },
+    {
+      "id": "wahiba-sands",
+      "name": {
+        "en": "Wahiba Sands",
+        "ar": "رمال وهيبة"
+      },
+      "lat": 22.5000,
+      "lng": 58.8000,
+      "image": "/images/destinations/wahiba-sands.jpg",
+      "region": {
+        "en": "sharqiya",
+        "ar": "الشرقية"
+      },
+      "categories": ["desert"],
+      "avg_visit_duration_minutes": 240,
+      "ticket_cost_omr": 5,
+      "recommended_months": [10, 11, 12, 1, 2, 3, 4],
+      "crowd_level": 4
+    },
+    {
+      "id": "jebel-akhdar",
+      "name": {
+        "en": "Jebel Akhdar",
+        "ar": "الجبل الأخضر"
+      },
+      "lat": 23.0667,
+      "lng": 57.6500,
+      "image": "/images/destinations/jebel-akhdar.jpg",
+      "region": {
+        "en": "dakhiliya",
+        "ar": "الداخلية"
+      },
+      "categories": ["mountain","nature"],
+      "avg_visit_duration_minutes": 240,
+      "ticket_cost_omr": 3,
+      "recommended_months": [3, 4, 5, 9, 10, 11],
+      "crowd_level": 3
+    },
+    {
+      "id": "mutrah-souq",
+      "name": {
+        "en": "Mutrah Souq",
+        "ar": "سوق مطرح"
+      },
+      "lat": 23.6157,
+      "lng": 58.5656,
+      "image": "/images/destinations/mutrah-souq.jpg",
+      "region": {
+        "en": "muscat",
+        "ar": "مسقط"
+      },
+      "categories": ["culture", "food"],
+      "avg_visit_duration_minutes": 120,
+      "ticket_cost_omr": 0,
+      "recommended_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "crowd_level": 5
+    },
+    {
+      "id": "salalah",
+      "name": {
+        "en": "Salalah",
+        "ar": "صلالة"
+      },
+      "lat": 17.0500,
+      "lng": 54.1000,
+      "image": "/images/destinations/salalah.jpg",
+      "region": {
+        "en": "dhofar",
+        "ar": "ظفار"
+      },
+      "categories": ["nature", "beach"],
+      "avg_visit_duration_minutes": 180,
+      "ticket_cost_omr": 0,
+      "recommended_months": [6, 7, 8, 9],
+      "crowd_level": 5
+    },
+    {
+      "id": "bahla-fort",
+      "name": {
+        "en": "Bahla Fort",
+        "ar": "قلعة بهلاء"
+      },
+      "lat": 22.9667,
+      "lng": 57.3000,
+      "image": "/images/destinations/bahla-fort.webp",
+      "region": {
+        "en": "dakhiliya",
+        "ar": "الداخلية"
+      },
+      "categories": ["culture"],
+      "avg_visit_duration_minutes": 120,
+      "ticket_cost_omr": 2,
+      "recommended_months": [10, 11, 12, 1, 2, 3, 4],
+      "crowd_level": 3
+    },
+    {
+      "id": "sur",
+      "name": {
+        "en": "Sur",
+        "ar": "صور"
+      },
+      "lat": 22.5667,
+      "lng": 59.5289,
+      "image": "/images/destinations/sur.jpg",
+      "region": {
+        "en": "sharqiya",
+        "ar": "الشرقية"
+      },
+      "categories": ["beach", "culture", "food"],
+      "avg_visit_duration_minutes": 150,
+      "ticket_cost_omr": 0,
+      "recommended_months": [10, 11, 12, 1, 2, 3, 4],
+      "crowd_level": 3
+    },
+    {
+      "id": "wadi-darbat",
+      "name": {
+        "en": "wadi Darbat",
+        "ar": "وادي دربات"
+      },
+      "lat": 17.139796,
+      "lng": 54.524405,
+      "image": "/images/destinations/wadi-darbat.webp",
+      "region": {
+        "en": "dhofar",
+        "ar": "الشرقية"
+      },
+      "categories": ["nature", "food"],
+      "avg_visit_duration_minutes": 150,
+      "ticket_cost_omr": 0,
+      "recommended_months": [8,9,10],
+      "crowd_level": 5
+    },
+    {
+      "id": "ayn-khoor",
+      "name": {
+        "en": "Ayn Khoor",
+        "ar": "عين خور"
+      },
+      "lat": 17.048894, 
+      "lng": 53.963706,
+      "image": "/images/destinations/aynkhoor.jpg",
+      "region": {
+        "en": "dhofar",
+        "ar": "الشرقية"
+      },
+      "categories": ["food", "nature","mountain"],
+      "avg_visit_duration_minutes": 180,
+      "ticket_cost_omr": 0,
+      "recommended_months": [9,10,11,12],
+      "crowd_level": 4
+    },
+    {
+      "id": "ayn-athum",
+      "name": {
+        "en": "Ayn Athum",
+        "ar": "عين أثوم"
+      },
+      "lat": 17.113221, 
+      "lng": 54.365017,
+      "image": "/images/destinations/aynathum.jpg",
+      "region": {
+        "en": "dhofar",
+        "ar": "الشرقية"
+      },
+      "categories": ["food", "nature","mountain"],
+      "avg_visit_duration_minutes": 60,
+      "ticket_cost_omr": 0,
+      "recommended_months": [9,10,11,12],
+      "crowd_level": 4
+    },
+    {
+      "id": "al-bustanbeach",
+      "name": {
+        "en": "Al Bustan Beach",
+        "ar": "شاطئ البستان"
+      },
+      "lat": 23.572366, 
+      "lng": 58.612375,
+      "image": "/images/destinations/albustanbeach.jpg",
+      "region": {
+        "en": "dhofar",
+        "ar": "الشرقية"
+      },
+      "categories": ["food", "nature","mountain"],
+      "avg_visit_duration_minutes": 60,
+      "ticket_cost_omr": 0,
+      "recommended_months": [9,10,11,12],
+      "crowd_level": 4
+    }                 
+  ]
+}

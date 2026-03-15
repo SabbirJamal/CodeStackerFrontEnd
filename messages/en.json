@@ -1,0 +1,54 @@
+{
+  "App": {
+    "title": "Visit Oman",
+    "subtitle": "Discover & Plan Your Journey"
+  },
+  "Navigation": {
+    "home": "Home",
+    "destinations": "Destinations",
+    "planTrip": "Plan Your Trip",
+    "saved": "Saved Interests"
+  },
+  "Home": {
+    "hero": {
+      "title": "Discover the Magic of Oman",
+      "subtitle": "From golden deserts to turquoise waters, experience authentic Arabian hospitality",
+      "cta": "Plan Your Trip"
+    },
+    "categories": {
+      "title": "Explore by Category",
+      "mountain": "Mountains",
+      "desert": "Desert",
+      "beach": "Beaches",
+      "culture": "Culture"
+    },
+    "featured": "Featured Destinations"
+  },
+  "Destination": {
+    "region": "Region",
+    "categories": "Categories",
+    "duration": "Visit Duration",
+    "ticket": "Ticket Price",
+    "crowd": "Crowd Level",
+    "save": "Save to Interests",
+    "saved": "Saved"
+  },
+  "Destinations": {
+    "appTitle": "Visit Oman",
+    "pageTitle": "Explore All Destinations",
+    "found": "Found {count} destinations",
+    "filters": "Filters",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "region": "Region",
+    "allRegions": "All Regions",
+    "travelMonth": "Travel Month",
+    "anyMonth": "Any Month",
+    "sortBy": "Sort By",
+    "popularity": "Popularity (Least Crowded)",
+    "cost": "Cost (Lowest First)",
+    "activeFilters": "Active filters:",
+    "clearAll": "Clear all",
+    "noDestinations": "No destinations match your filters"
+  }
+}

@@ -14,13 +14,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
 }
+
+.hero-gradient-fallback {
+  background: linear-gradient(135deg, #2E7D32 0%, #D32F2F 100%);
+}
+
