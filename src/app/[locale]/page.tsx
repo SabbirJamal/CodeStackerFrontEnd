@@ -8,6 +8,7 @@ import { Destination } from '@/types/destination';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import DestinationCard from '@/components/DestinationCard';
 import CategoryCard from '@/components/CategoryCard';
+import LottieAnimation from '@/components/LottieAnimation';
 
 export default function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = React.use(params);
@@ -295,11 +296,12 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer with Social Media Animations */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Company Info */}
+            <div className="col-span-1">
               <h3 className="text-xl font-bold mb-4 text-white">🇴🇲 Visit Oman</h3>
               <p className="text-gray-400 text-sm">
                 {locale === 'en'
@@ -307,7 +309,9 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
                   : 'اكتشف جمال وثقافة سلطنة عمان'}
               </p>
             </div>
-            <div>
+            
+            {/* Quick Links */}
+            <div className="col-span-1">
               <h4 className="font-semibold mb-4 text-white">{locale === 'en' ? 'Quick Links' : 'روابط سريعة'}</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a href={`/${locale}/destinations`} className="hover:text-white cursor-pointer">{locale === 'en' ? 'Destinations' : 'الوجهات'}</a></li>
@@ -315,9 +319,70 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
                 <li><a href={`/${locale}/saved`} className="hover:text-white cursor-pointer">{locale === 'en' ? 'Saved' : 'المحفوظات'}</a></li>
               </ul>
             </div>
-            <div>
+            
+            {/* Contact */}
+            <div className="col-span-1">
               <h4 className="font-semibold mb-4 text-white">{locale === 'en' ? 'Contact' : 'اتصل بنا'}</h4>
+              <p className="text-gray-400 text-sm mb-4">
+                {locale === 'en' ? 'Email: info@visitoman.com' : 'البريد الإلكتروني: info@visitoman.com'}
+              </p>
               <p className="text-gray-400 text-sm">© 2026 Visit Oman. All rights reserved.</p>
+            </div>
+
+            {/* Social Media Animations */}
+            <div className="col-span-1">
+              <h4 className="font-semibold mb-4 text-white">{locale === 'en' ? 'Follow Us' : 'تابعنا'}</h4>
+              <div className="flex gap-4 items-center">
+                <a 
+                  href="https://discord.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                >
+                  <LottieAnimation 
+                    animationPath="/animations/discordlogo.json"
+                    className="w-12 h-12"
+                  />
+                </a>
+                <a 
+                  href="https://facebook.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                >
+                  <LottieAnimation 
+                    animationPath="/animations/facebooklogo.json"
+                    className="w-12 h-12"
+                  />
+                </a>
+                <a 
+                  href="https://tiktok.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                >
+                  <LottieAnimation 
+                    animationPath="/animations/tiktoklogo.json"
+                    className="w-12 h-12"
+                  />
+                </a>
+                <a 
+                  href="https://instagram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                >
+                  <LottieAnimation 
+                    animationPath="/animations/instagramlogo.json"
+                    className="w-12 h-12"
+                  />
+                </a>
+              </div>
+              <p className="text-gray-400 text-sm mt-4">
+                {locale === 'en' 
+                  ? 'Follow us on social media for updates' 
+                  : 'تابعنا على وسائل التواصل الاجتماعي للحصول على آخر التحديثات'}
+              </p>
             </div>
           </div>
         </div>

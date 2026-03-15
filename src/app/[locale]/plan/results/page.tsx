@@ -10,7 +10,7 @@ import { generateItinerary, getStopExplanation, isOverBudget, getCostSavingSugge
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import dynamic from 'next/dynamic';
 
-// Dynamically import map (client-side only)
+// Dynamically import map ( this is for client-side only)
 const ItineraryMap = dynamic(() => import('@/components/ItineraryMap'), { ssr: false });
 
 export default function ResultsPage({ params }: { params: Promise<{ locale: string }> }) {
