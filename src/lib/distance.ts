@@ -1,14 +1,14 @@
 /**
- * Calculates the distance between two points on Earth using the Haversine formula
- * @param point1 { lat: number, lng: number }
- * @param point2 { lat: number, lng: number }
+ // for calculating the distance between two points on Earth using the Haversine formula
+ * @param point1 { to store the lat, lng of first destination }
+ * @param point2 { to store the lat, lng of first destination}
  * @returns Distance in kilometers
  */
 export function haversineDistance(
   point1: { lat: number; lng: number },
   point2: { lat: number; lng: number }
 ): number {
-  const R = 6371; // Earth's radius in kilometers
+  const R = 6371; // Earth's radius in kilometers (found from google)
   
   const lat1 = toRadians(point1.lat);
   const lat2 = toRadians(point2.lat);
@@ -25,9 +25,7 @@ export function haversineDistance(
   return R * c;
 }
 
-/**
- * Converts degrees to radians
- */
+ // Converts degrees to radians
 function toRadians(degrees: number): number {
   return degrees * (Math.PI / 180);
 }
@@ -50,7 +48,7 @@ export function totalRouteDistance(
 }
 
 /**
- * Calculates the detour penalty when adding a new stop to an existing route
+ * Calculation of the detour penalty when adding a new stop to an existing route
  * @param route Original route points
  * @param newStop The new point to insert
  * @param insertAtIndex Position to insert (0 = start, route.length = end)

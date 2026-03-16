@@ -13,7 +13,7 @@ import { haversineDistance } from './distance';
 import { v4 as uuidv4 } from 'uuid';
 
 // Fuel price in OMR per liter
-const FUEL_PRICE = 0.340; // avaerag fuel price approx
+const FUEL_PRICE = 0.240; // avaerag fuel price approx
 const FUEL_EFFICIENCY = 12; // km per liter
 
 // hotel costs per night
