@@ -1,4 +1,4 @@
-Visit Oman - Discover & Plan
+#Visit Oman - Discover & Plan
 This is a bilingual (English/Arabic) tourism platform for Oman that helps visitors discover destinations and generate optimized travel itineraries entirely in the browser.
 This website basically helps users/tourists to get a guide on what places to visit in Oman by selecting there budget, crowd intensity, month of travel. 
 
@@ -7,7 +7,7 @@ This project was built for the CODESTACKER 2026 Frontend Development Challenge. 
   1.Marketing Site (SSR) - Destination discovery with bilingual support
   2.Itinerary Generator (CSR) - Intelligent trip planning with constraint-based optimization
 
-Techs/tools used
+#Techs/tools used
  -Framework: Next.js 15 with App Router
  -Language: TypeScript
  -Styling: Tailwind CSS
@@ -17,9 +17,10 @@ Techs/tools used
  -Utilities: date-fns, uuid
 
 
- Features
+ #Features
  This project aimed to complete 2 main features (competition requriments)
-   Part 1: Marketing Site
+
+   ##Part 1: Marketing Site
      -Bilingual (English/Arabic) with RTL support
      -Landing page with hero, categories, featured destinations
      -Destination browsing with filters (category, region, season)
@@ -28,7 +29,7 @@ Techs/tools used
      -Save interests with localStorage persistence
      -Saved interests page
 
-   Part 2: Itinerary Generator
+   ##Part 2: Itinerary Generator
      -User preferences form (duration, budget, month, intensity)
      -Multi-objective scoring with normalized weights
      -Region-level planning with day allocation
@@ -46,12 +47,12 @@ Techs/tools used
      -Full persistence across refresh
 
 
-Pre-requisites required
+#Pre-requisites required
 -node.js v20.18.3 or later
 -npm or yarn
 
 
-Installation (```bash)
+#Installation (```bash).
     1.git clone https://github.com/SabbirJamal/CodeStackerFrontEnd
     
     2.Navigate to project (code could be different based on file location)
@@ -63,10 +64,10 @@ Installation (```bash)
     4.Run development server
     npm run dev
 
-Go to browser abd paste the url that was achieved for bash or copy paste this url `http://localhost:3000/en`
+    Go to browser abd paste the url that was achieved for bash or copy paste this url `http://localhost:3000/en`
 
 
-State Management Approach
+#State Management Approach.
   The state management approach choosen for this project is Zustand. The reason of choosing zustand is its very simple, persistence and lightweight. For this project the only global state management required is the s'saved interests'. Remaing all are urls, form inputs, generative itinerary  and language prefereances. How zustand works is very simple:
     -It keeps an array of ids of saved destinations
     -provides add,remove and view saved items function. pretty much curd operations.
@@ -75,7 +76,7 @@ State Management Approach
   This way i able to do simpler work by meeting the challenge requirements.
 
 
-Rendering Strategy (SSR,CSR)
+#Rendering Strategy (SSR,CSR).
  For this project SSR (server side rendering) was choseing for marketing the pages. Here is a breakdown why SSR is choosen-
    Home page - Search engines require SEO content to be visible. if it is client-rendered, search engine will fail
    Destination Page- when using filters for contents, the preview should show actual content and crash or loading screen.
@@ -89,16 +90,17 @@ Rendering Strategy (SSR,CSR)
 
 
 
-Itinerary generation algorithm
-  The itinerary is where the main core feature of this website happens. It takes the users requrest and produces atravel plan. There are different phases on how it works
-    Phase 1: In this phase, the user decides and selects there preferences such as the month of travel, budget, duration of travel, categories, etc. So what happens in background process is, all the destinaitions are    goruped into respectiv regios. Each region then gets a score based on the user preferences choosen in categories and how suitable the travel month is for the destination.The coded algorithm then gets applied here.
+#Itinerary generation algorithm
+
+  The itinerary is where the main core feature of this website happens. It takes the users requrest and produces atravel plan. There are different phases on how it works.
+    ##Phase 1: In this phase, the user decides and selects there preferences such as the month of travel, budget, duration of travel, categories, etc. So what happens in background process is, all the destinaitions are    goruped into respectiv regios. Each region then gets a score based on the user preferences choosen in categories and how suitable the travel month is for the destination.The coded algorithm then gets applied here.
       -if trips are >=3 days, 2 regions must be visited.
       -no region can have 2 days to visit
       -regions which gets high scores, they'll be given priority. Say for example user selects month as september and nature category, Dhofar region will have more score.
     AThe traveling days,meaning the time spent on each regions is distributed by checking the score. The region that has higher score gets more days. 
     So the ouput comes like a plan 'Day 1-2 inmuscat, day 3-4 sharqiya'
 
-    Phase 2: Here dauly routing happens. A detailed optimized route gets created. The input of calculating this are the destinations within a region an dthe number of days spent on that rehion. These doesnt come from user, it is achieved from phase 1. nOw in phase 2 there are 3 steps:
+    ##Phase 2: Here dauly routing happens. A detailed optimized route gets created. The input of calculating this are the destinations within a region an dthe number of days spent on that rehion. These doesnt come from user, it is achieved from phase 1. nOw in phase 2 there are 3 steps:
       1. Greedy selection- Here each day gets started from the center of the region, and repeatedly add the hihest scoring destination which
         - fits withing the time left (visit duration + treavel time)
         - doesnt exceedmore than 250km per day.
@@ -114,7 +116,7 @@ Itinerary generation algorithm
         - category variety maintained
     This gives an output of all the stops that can happen perdat with corresponding arrival and departure timings
 
-    Pahse 3: This phase calculated the coast. The calcualtions are provided from the challenge. The calcultations are as follwos
+    ##Pahse 3: This phase calculated the coast. The calcualtions are provided from the challenge. The calcultations are as follwos
       - fuel cost = (totalkilometer/12) * 0.240
       - ticket cost = different mticket costs are mentioned in within the destination. So sum of all ticket costs
       - food cost = 6 * number of days
@@ -125,7 +127,7 @@ Itinerary generation algorithm
         - medium budget <=80 omr perday
         - luxury budget <=150 omr perday
   
-    Phase 4: Here, the user understand y each stop is chosen. They pretty much explanation about there plan. The process is that or each destinations, 2 top contibution factors are identifiied from:
+    ##Phase 4: Here, the user understand y each stop is chosen. They pretty much explanation about there plan. The process is that or each destinations, 2 top contibution factors are identifiied from:
       - category match the user interest
       - excellent season fit
       -l low crowds
@@ -134,16 +136,16 @@ Itinerary generation algorithm
     
     Just giving an example to show how the algorithm work. 
     Lets say the user selected or has give the input as Duration - 5 days,Month - March, Budget - Medium, Intensity - Balanced,Interests-nature, Saved interests - Wadi Shab, Jebel Akhdar, Salalah.
-    Phase 1: Calcualtion happens for each adn every region. 
+    ##Phase 1: Calcualtion happens for each adn every region. 
       formula: Region Score = (Avg Interest Match × 0.6) + (Avg Season Fit × 0.4)
-      results:
+      ###results:
         Dhofar Region Destinations:
          Salalah: categories ["nature", "beach"], months [6,7,8,9]
          Wadi Darbat: categories ["nature", "food"], months [8,9,10]
          Ayn Khoor: categories ["food", "nature", "mountain"], months [9,10,11,12]
          Ayn Athum: categories ["food", "nature", "mountain"], months [9,10,11,12]
         
-         Interest match calcualtion (Jaccard Similarity)
+         Interest match calcualtion (Jaccard Similarity).
            Jaccard(user_categories, dest_categories) = intersection / union
             For Salalah with user ["nature"]:
             - intersection = ["nature"] → 1
@@ -158,7 +160,7 @@ Itinerary generation algorithm
             - union = ["nature", "food", "mountain"] → 3
             - Jaccard = 0.33
 
-          Season fit
+          Season fit.
             For Salalah: months [6,7,8,9] → closest is 6 (3 months away) → Season Score = 0.2
             For Wadi Darbat: months [8,9,10] → closest is 8 (5 months away) → Season Score = 0.2
             For Ayn Khoor: months [9,10,11,12] → closest is 9 (6 months away) → Season Score = 0.2
@@ -166,7 +168,7 @@ Itinerary generation algorithm
             Avg Season for Dhofar = (0.2 + 0.2 + 0.2 + 0.2) / 4 = 0.2
             Dhofar Region Score = (0.415 × 0.6) + (0.2 × 0.4) = 0.249 + 0.08 = 0.329
 
-          Just like how for dhofar region, score was achieved same way all region scores gets achieved
+          Just like how for dhofar region, score was achieved same way all region scores gets achieved.
             Region	       Destinations	          Avg Interest	       Avg Season	       Final Score
             Dhofar	    4 destinations	           0.415	              0.20	           0.329
             Sharqiya	  3 destinations	            0.33	              0.80	           0.518
@@ -192,7 +194,7 @@ Itinerary generation algorithm
         
       and this is how days gets allocated.
     
-    Phase 2: Routing
+    ##Phase 2: Routing.
       Day 1-2: Dakhiliya Region
         Available destinations in Dakhiliya:
         Jebel Akhdar: duration 240 min, cost 3 OMR, crowd 3
@@ -234,7 +236,7 @@ Itinerary generation algorithm
 
       and thus day 1 for jabel akhdar and  day 2 for bahla fort schedules is made. And similarly other schedules are made
 
-    Phase 3: Cost calculation
+    ##Phase 3: Cost calculation
       fuel estimation
         Total distance = Day1 36.4 + Day2 96.8 + Day3 145.2 + Day4 102.7 + Day5 180.3 = 561.4 km
         fuel consumption = 561.4 km ÷ 12 km/liter = 46.78 liters
@@ -265,7 +267,7 @@ Itinerary generation algorithm
       budget for medium tier is 80 * 5 = 400
       226.22 < 400 OmR, hence it is within the budget
 
-    Pagse 4: Generation
+    ##Pagse 4: Generation
       For Jebel Akhdar selection, the algorithm explains:
       "Perfect match with your nature interests" (30% weight contribution)
       "March is ideal for visiting" (25% weight contribution)
@@ -273,8 +275,8 @@ Itinerary generation algorithm
 
 
 
-Weight selectiuon and Normalization Strategy
-  Weigh Selection Reationale
+#Weight selectiuon and Normalization Strategy.
+  ##Weigh Selection Reationale.
   The competition had given formula's but not the actual weights. Here is the final weight decided after multiple tries
    Interest Match   -   30%  -  Users choosing there intrest such as beach or mountain or anything like tht plays the most important curcial rule. If the users look for beach, they should get beach.
                                 so for this intrest match, first 40% weight was given. But this resulted the algorithm to be very aggresive. towards 35, it was decent but not giveing a good match. 30% fit perfect.
@@ -289,7 +291,7 @@ Weight selectiuon and Normalization Strategy
    
    If takeing interest match more than 35%, always same category locations are found. If season fit is less tha 20%, same suggestions happen for example salalah gets suggested in march which is a big no. These weights seem most balanced at this point.
 
-  Normalization
+  ##Normalization.
   Normalization is basically converting scores into 0 and 1. Why requried to convert, bcz we need to take values of crowd level, entry fee etc to compare and give results to user. Now if we dont convert the values in 0 and 1, entry cost will be more than crown level. For example say entry cost is 15 and crownd level is 2, it just doesnt give perfect solution if not normalised. So the solution is to normalise the values to 0 and 1.  is for worst case adn 1 is for the best case.
   The components are nomarlized as
     Interest Match	  0-1 (already)	    Jaccard similarity naturally returns 0-1 - no transformation needed
@@ -304,11 +306,46 @@ Weight selectiuon and Normalization Strategy
     -Intuitive results as score of 0.75 clearly means "75% of perfect"
 
 
-  Performance consideration and optimization
+#Performance consideration and optimization.
   all the perfomance happen locally, no backend api calls. 
-  key per
+  console.time() was implemented on itinenary page to check out performance of the code algorithm. This performance is checked and measured within the browser (google)
+  The reuslts where acchieved as follows (a screen shot has been provided in the following file path - additional\performanceTEST1.png)
+    Itinerary generated in 2.600 ms (first run)
+    Itinerary generated in 0.700 ms
+    Itinerary generated in 0.400 ms
+    Itinerary generated in 0.400 ms
+  The above test was done for 1 day trip. There are multiple speed shown because multiple checks happen at the background.
 
+  Test has been done with a 7 days and medium budget 
+  Results were (screenshot available in following file path - additional\performanceTEST2.png)
+    Itinerary generated in 3.400 ms (first run)
+    Itinerary generated in 0.700 ms
+    Itinerary generated in 0.400 ms
+    Itinerary generated in 0.500 ms
   
+  The first run was slower which could be due to sloading the codes, compiling the funciton,seeting up memory, etc. SUsequently the second run the performance seem to have a good boost as caches kick in.
+
+  Key Optimizations Implemented
+    Efficient Algorithms
+      -Greedy selection with 2-opt optimization runs in O(n³) where n ≤ 5 stops
+      -Haversine formula is O(1) per distance calculation
+      -All calculations complete in under 5ms total
+
+    Smart Data Structures
+      -Destinations stored in memory for fast access
+      -No expensive API calls - all calculations local
+      -Minimal object creation to reduce garbage collection
+
+    Lazy Loading
+      -Map components load only when needed
+      -Images load asynchronously
+
+    Early Bailout Conditions
+      -If no destinations match filters, skip expensive routing
+      -Region allocation uses pre-computed scores
+      -Stop adding to route when constraints can't be met
+
+
 Limitations and tradeoffs
 -The destination dataset is limited. Having more number of destinations can make better accurate results. The itineraries would be showing better results
 -No real road distance are used. the challenge requirement was to huse haversine formula to calculate distance. Unfortunately this formula calculates straight path only. and the roads are ofcourse not straight.

@@ -13,7 +13,7 @@ import { haversineDistance } from './distance';
 import { v4 as uuidv4 } from 'uuid';
 
 // Fuel price in OMR per liter
-const FUEL_PRICE = 0.240; // avaerag fuel price approx
+const FUEL_PRICE = 0.240; // average fuel price approx
 const FUEL_EFFICIENCY = 12; // km per liter
 
 // hotel costs per night
@@ -36,12 +36,14 @@ const REGION_CENTERS: Record<string, { lat: number; lng: number }> = {
   dhahira: { lat: 23.5000, lng: 56.5000 }
 };
 
-
- // main function for generating a complete itinerary
+// main function for generating a complete itinerary
 export function generateItinerary(
   destinations: Destination[],
   preferences: UserPreferences
 ): Itinerary {
+  
+  // performance calculation starts here
+  const startTime = performance.now();
   
   // first, calculate region scores
   const regionScores = calculateRegionScores(destinations, preferences);
@@ -53,12 +55,12 @@ export function generateItinerary(
   const dailyRoutes: DailyRoute[] = [];
   
   regionAllocation.forEach(regionPlan => {
-    // Gettinh destinations in this region
+    // Getting destinations in this region
     const regionDests = destinations.filter(d => d.region.en === regionPlan.region);
     
     if (regionDests.length === 0) return;
     
-    // Gettin region center
+    // Getting region center
     const regionCenter = REGION_CENTERS[regionPlan.region] || regionDests[0];
     
     // plan days for this region
@@ -79,7 +81,7 @@ export function generateItinerary(
     dailyRoutes.push(...regionRoutes);
   });
   
-  // ort routes by day
+  // sort routes by day
   dailyRoutes.sort((a, b) => a.day - b.day);
   
   // fourth, calculate total costs
@@ -98,6 +100,11 @@ export function generateItinerary(
     totalCost,
     createdAt: new Date().toISOString()
   };
+  
+  // performance calcutation ends here with displaying the results
+  const endTime = performance.now();
+  const totalTime = endTime - startTime;
+  console.log(`Itinerary generated in ${totalTime.toFixed(3)} ms`);
   
   return itinerary;
 }
@@ -156,7 +163,7 @@ export function getStopExplanation(
     reasons.push(`Matches your interests: ${matchingCategories.join(', ')}`);
   }
   
-  // Season fit - FIXED: ensure month is treated as number
+  // Season fit - ensure month is treated as number
   const month = preferences.month;
   if (destination.recommended_months.includes(month as any)) {
     reasons.push(`Perfect time to visit (${new Date(2024, month-1).toLocaleString('en-US', { month: 'long'})} is ideal)`);
@@ -179,7 +186,7 @@ export function getStopExplanation(
   return reasons.slice(0, 2); // Return top 2 reasons
 }
 
- // Check if total cost exceeds budget threshold
+// Check if total cost exceeds budget threshold
 export function isOverBudget(
   totalCost: number,
   budgetTier: string,
