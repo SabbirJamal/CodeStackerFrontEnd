@@ -194,7 +194,7 @@ export default function ScoreTestPage({ params }: { params: Promise<{ locale: st
                         key={m}
                         className={`text-center text-xs p-1 rounded ${
                           destination.recommended_months.includes(m)
-                            ? 'bg-oman-green text-white'
+                            ? 'bg-oman-green text-black'
                             : 'bg-gray-100'
                         }`}
                       >

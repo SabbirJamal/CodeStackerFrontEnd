@@ -358,5 +358,136 @@ These are the different algorithms use but not combined into 1
 -`/en/region-test` - Region allocation
 -`/en/routing-test` - Daily routing with constraints
 
+Additional test Cases
+  as shown above, there where 4 seperate pages made to test. then these 3 pages were combinied to 1 to generate itinerary.
+  1. Distance test
+    1.1 Sultan Qaboos Grand Mosque to Jebel Akhdar
+        Sultan Qaboos Grand Mosque
+          lat: 23.5842,
+          lng: 58.3888,
+        Jebel Akhdar 
+          lat: 22.5000,
+          lng: 58.8000,
+        Now how is this calculated, haverinse has there own formula which i have used in distance.ts file.
+        First step is to convert the values into raddians
+          lat1 = 23.5842 × π/180 = 0.4116 rad
+          lat2 = 23.0667 × π/180 = 0.4026 rad
+          lng1 = 58.3888 × π/180 = 1.0190 rad  
+          lng2 = 57.6500 × π/180 = 1.0062 rad
+
+        Second step is to find the difference between both lattitudes and longitutdes
+          dlat = 0.4116 - 0.4026 = 0.0090 rad
+          dlng = 1.0190 - 1.0062 = 0.0128 rad
+        
+        third step is to apply haversine formula
+          a = sin²(dlat/2) + cos(lat1) × cos(lat2) × sin²(dlng/2)
+          a = sin²(0.0045) + cos(0.4116) × cos(0.4026) × sin²(0.0064)
+
+          sin(0.0045) ≈ 0.0045 → square = 0.00002025
+          cos(0.4116) ≈ 0.9165
+          cos(0.4026) ≈ 0.9201
+          sin(0.0064) ≈ 0.0064 → square = 0.00004096
+
+          a = 0.00002025 + (0.9165 × 0.9201 × 0.00004096)
+          a = 0.00002025 + (0.8433 × 0.00004096)
+          a = 0.00002025 + 0.00003454
+          a = 0.00005479
+
+        4th step
+          c = 2 × atan2(√a, √(1-a))
+          c = 2 × atan2(0.0074, 0.99997)
+          c = 2 × 0.0074
+          c = 0.0148 radians
+        
+        fifth step is to calculate distance = R*c (R stands for earth's average equatorial radius)
+          R = 6371 km
+          Distance = 6371 × 0.0148 = 94.3 km
+      You can find this results screen shot in the file path 'additiontional\testcase\distanceTest1.1.png' or try yourself in the url 'http://localhost:3000/en/distance-test'
+
+    1.2 Sultan Qaboos to Sultan Qaboos
+        This test is just to check that the map distance works even if same results are given.
+        The distance comes as 0km. You can find screen shot in the file path additiontional\testcase\distanceTest1.2.png
+
+  2. Distance Test
+    2.1 Perfect Match
+      Input are Month:	March, User Interests: mountain, nature, Destination: Jebel Akhdar
+      Results
+      Interest: mountain,nature vs mountain,nature = 2/2 = 1.0 × 30% = 0.30
+      Season: March in recommended [3,4,5,9,10,11] = 1.0 × 25% = 0.25
+      Crowd: Level 3 → normalized = 0.5 × -15% = -0.075     
+      Cost: 3 OMR → 3/20 = 0.15 × -15% = -0.0225
+      Total = 0.30 + 0.25 - 0.075 - 0.0225 = 0.4525 (45.3%)
+      Screenshot available in file path 'additiontional\testcase\scoreTest2.1.png'
+    
+    2.2 Poor Match Test
+      Input are Month:	August, User Interests:	beach, Destination:	Jebel Akhdar
+      Resutls
+      Interest: beach vs mountain,nature = 0/2 = 0 × 30% = 0
+      Season: August not in recommended = 0.2 × 25% = 0.05
+      Crowd: Level 3 → 0.5 × -15% = -0.075
+      Cost: 3 OMR → 0.15 × -15% = -0.0225
+      Total = 0 + 0.05 - 0.075 - 0.0225 = -0.0475 → 10.3%
+      Screenshot available in file path 'additiontional\testcase\scoreTest2.2.png'
+      for self test follow the url 'http://localhost:3000/en/distance-test'
+
+  3. Region Test
+     3 day cultural trip
+      Input are Duration: 3 days, Month: March, Interests: culture, nature.
+      Region Score = (Avg Interest Match × 0.6) + (Avg Season Fit × 0.4)
+
+      Each destination and region score gets calculated.
+      Example
+      For Jebel Akhdar: 
+        User [culture, nature] vs [mountain, nature]
+        Intersection = [nature] → 1
+        Union = [culture, nature, mountain] → 3
+        Score = 1/3 = 0.33
+
+      For Bahla Fort:
+        User [culture, nature] vs [culture]
+        Intersection = [culture] → 1
+        Union = [culture, nature] → 2
+        Score = 1/2 = 0.50
+
+      Average Interest = (0.33 + 0.50) / 2 = 0.415
+      Jebel Akhdar: months [3,4,5,9,10,11] → March is IN list → 1.0
+      Bahla Fort: months [10,11,12,1,2,3,4] → March is IN list → 1.0
+      Average Season = (1.0 + 1.0) / 2 = 1.0
+
+      Similarly all locations are found. the best match as Day 1 = 2 Days in Dakhiliya and Day 2 = 1 day in Sharqiya.
+      Screenshot available in file path 'additiontional\testcase\regionTest1.png'
+      for self test follow the url 'http://localhost:3000/en/region-test'
+    
+  4. Routing testing
+    4.1 Relaxed Routing
+    Input are - Region: Muscat,Days: 1, Intensity: Relaxed (max 3 stops), Month:	November, Interests:	culture, food
+      Start: 9:00 AM
+      Travel to Sultan Mosque: 0 min (starting point)
+      Visit Sultan Mosque: 90 min (9:00-10:30)
+      Travel to Mutrah Souq: 15 min (10:30-10:45)
+      Visit Mutrah Souq: 120 min (10:45-12:45)
+      Return: 15 min (12:45-1:00 PM)
+      Total time: 4 hours, under 6 hour limit
+      Screenshot available in file path 'additiontional\testcase\routingTest4.1.png'
+      for self test follow the url 'http://localhost:3000/en/routing-test'
+    
+    4.2 Packed Routing
+    Input are - Region: Dakhliya,Days: 2, Intensity: Packed (max 5 stops), Month:	March, Interests:	culture, mountain
+      Results:
+      Jebel Akhdar: 240 min (4 hours)
+      Travel to Bahla Fort: 45 min
+      Bahla Fort: 120 min (2 hours)
+      Total: 6.75 hours, under 10 hour limit
+      But can't add 3rd stop due to time
+      Screenshot available in file path 'additiontional\testcase\routingTest4.2.png'
+  All test cases were made individually and surpased with excellence.
+
+##A compelete generation of itinerary test.
+  
 
 
+
+
+
+
+    

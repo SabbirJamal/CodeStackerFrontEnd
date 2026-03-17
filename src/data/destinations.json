@@ -141,7 +141,7 @@
       },
       "lat": 22.5667,
       "lng": 59.5289,
-      "image": "/images/destinations/sur.jpg",
+      "image": "/images/destinations/sur.webp",
       "region": {
         "en": "sharqiya",
         "ar": "الشرقية"
@@ -227,6 +227,45 @@
       "ticket_cost_omr": 0,
       "recommended_months": [9,10,11,12],
       "crowd_level": 4
-    }                 
+    },
+    {
+      "id": "oaa",
+      "name": {
+        "en": "Oman Auto Mobile Association",
+        "ar": "شاطئ البستان"
+      },
+      "lat": 23.583556,
+      "lng": 58.320924,
+      "image": "/images/destinations/oaa.jpg",
+      "region": {
+        "en": "muscat",
+        "ar": "الشرقية"
+      },
+      "categories": ["food", "culture"],
+      "avg_visit_duration_minutes": 180,
+      "ticket_cost_omr": 5,
+      "recommended_months": [9,10,11,12],
+      "crowd_level": 4
+    },
+    {
+      "id": "bandaralkhairan",
+      "name": {
+        "en": "Bandar Al Khairan",
+        "ar": "شاطئ البستان"
+      },
+      "lat": 23.515727, 
+      "lng": 58.743305,
+      "image": "/images/destinations/bandaralkhairan.jpg",
+      "region": {
+        "en": "muscat",
+        "ar": "الشرقية"
+      },
+      "categories": ["food", "mountain","beach"],
+      "avg_visit_duration_minutes": 180,
+      "ticket_cost_omr": 0,
+      "recommended_months": [1,2,10,11,12],
+      "crowd_level": 4
+    }                
   ]
 }
+
