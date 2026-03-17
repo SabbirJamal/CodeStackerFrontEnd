@@ -55,7 +55,8 @@ Pre-requisites required
 
 setup and Installation (```bash)
 
-     1.git clone https://github.com/SabbirJamal/CodeStackerFrontEnd
+     1.copy to paste to terminal
+     git clone https://github.com/SabbirJamal/CodeStackerFrontEnd
     
      2.Navigate to project (code could be different based on file location)
     cd CodeStackerFrontEnd
@@ -67,6 +68,9 @@ setup and Installation (```bash)
     npm run dev
 
      Go to browser abd paste the url that was achieved for bash or copy paste this url `http://localhost:3000/en`
+
+- there is a video on additional\video\demo.mp4.
+- it demnonstrates teh website with explanation
 
 #architecture overview
   ##Core Application Files (The Foundation)
@@ -574,43 +578,43 @@ Step 1 - Region Calculation
     - Bahla Fort: categories [culture]
 
     interest match calcualtion
-    For Jebel Akhdar:
-      User [culture, nature] vs [mountain, nature]
-      Intersection = [nature] → 1
-      Union = [culture, nature, mountain] → 3
-      Score = 1/3 = 0.33
+    - For Jebel Akhdar:
+      - User [culture, nature] vs [mountain, nature]
+      - Intersection = [nature] → 1
+      - Union = [culture, nature, mountain] → 3
+      - Score = 1/3 = 0.33
 
     For Bahla Fort:
-      User [culture, nature] vs [culture]
-      Intersection = [culture] → 1
-      Union = [culture, nature] → 2
-      Score = 1/2 = 0.50
+      - User [culture, nature] vs [culture]
+      - Intersection = [culture] → 1
+      - Union = [culture, nature] → 2
+      - Score = 1/2 = 0.50
 
     For Nizwa:
-      User [culture, nature] vs [food, mountain, beach]
-      Intersection = [] → 0
-      Union = [culture, nature, food, mountain, beach] → 5
-      Score = 0/5 = 0
+      - User [culture, nature] vs [food, mountain, beach]
+      - Intersection = [] → 0
+      - Union = [culture, nature, food, mountain, beach] → 5
+      - Score = 0/5 = 0
     
     Average Interest = (0.33 + 0.50 + 0) / 3 = 0.83 / 3 = 0.277
 
     season fit
-      Jebel Akhdar: recommended months [3,4,5,9,10,11] → March is IN → 1.0
-      Bahla Fort: recommended months [10,11,12,1,2,3,4] → March is IN → 1.0
-      Nizwa: [1,2,10,11,12] → March is 3 → NOT in list → 0.2
+      - Jebel Akhdar: recommended months [3,4,5,9,10,11] → March is IN → 1.0
+      - Bahla Fort: recommended months [10,11,12,1,2,3,4] → March is IN → 1.0
+      - Nizwa: [1,2,10,11,12] → March is 3 → NOT in list → 0.2
 
       Average Season = (1.0 + 1.0 + 0.2) / 3 = 2.2 / 3 = 0.733
 
     saved interest bonus
-      Jebel Akhdar is in saved interests → +0.05
-      Bahla Fort not saved → 0
-      Nizwa not saved → 0
-      Total Bonus = 0.05
+      - Jebel Akhdar is in saved interests → +0.05
+      - Bahla Fort not saved → 0
+      - Nizwa not saved → 0
+      - Total Bonus = 0.05
 
 
     Dakhiliya regon score
-      Base Score = (0.277 × 0.6) + (0.733 × 0.4) = 0.166 + 0.293 = 0.459
-      With Bonus = 0.459 + 0.05 = 0.509 (50.9%)
+      - Base Score = (0.277 × 0.6) + (0.733 × 0.4) = 0.166 + 0.293 = 0.459
+      - With Bonus = 0.459 + 0.05 = 0.509 (50.9%)
 
   Sharqiya Region - Destinations:
     - Wadi Shab: categories [nature]
