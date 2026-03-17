@@ -47,24 +47,25 @@ This project was built for the CODESTACKER 2026 Frontend Development Challenge. 
      -Full persistence across refresh
 
 
-#Pre-requisites required
--node.js v20.18.3 or later
--npm or yarn
+Pre-requisites required
+- node.js v20.18.3 or later
+- npm or yarn
 
 
-#setup and Installation (```bash).
-    1.git clone https://github.com/SabbirJamal/CodeStackerFrontEnd
+@@setup and Installation (```bash)
+
+     1.git clone https://github.com/SabbirJamal/CodeStackerFrontEnd
     
-    2.Navigate to project (code could be different based on file location)
+     2.Navigate to project (code could be different based on file location)
     cd fecomp
 
-    3.Install required dependencies for running the project
+     3.Install required dependencies for running the project
     npm install
 
-    4.Run development server
+     4.Run development server
     npm run dev
 
-    Go to browser abd paste the url that was achieved for bash or copy paste this url `http://localhost:3000/en`
+     Go to browser abd paste the url that was achieved for bash or copy paste this url `http://localhost:3000/en`
 
 #architecture overview
   ##Core Application Files (The Foundation)
