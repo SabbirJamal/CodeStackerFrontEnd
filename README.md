@@ -1,3 +1,4 @@
+
 #Visit Oman - Discover & Plan
 This is a bilingual (English/Arabic) tourism platform for Oman that helps visitors discover destinations and generate optimized travel itineraries entirely in the browser.
 This website basically helps users/tourists to get a guide on what places to visit in Oman by selecting there budget, crowd intensity, month of travel. 
@@ -57,7 +58,7 @@ setup and Installation (```bash)
      1.git clone https://github.com/SabbirJamal/CodeStackerFrontEnd
     
      2.Navigate to project (code could be different based on file location)
-    cd fecomp
+    cd CodeStackerFrontEnd
 
      3.Install required dependencies for running the project
     npm install
@@ -347,7 +348,7 @@ setup and Installation (```bash)
 
 
 
--Weight selectiuon and Normalization Strategy.
+- Weight selectiuon and Normalization Strategy.
   - Weigh Selection Reationale.
   - The competition had given formula's but not the actual weights. Here is the final weight decided after multiple tries
    - Interest Match   -   30%  -  Users choosing there intrest such as beach or mountain or anything like tht plays the most important curcial rule. If the users look for beach, they should get beach.
@@ -364,40 +365,42 @@ setup and Installation (```bash)
    - If takeing interest match more than 35%, always same category locations are found. If season fit is less tha 20%, same suggestions happen for example salalah gets suggested in march which is a big no. These weights seem most balanced at this point.
 
   ##Normalization.
-  Normalization is basically converting scores into 0 and 1. Why requried to convert, bcz we need to take values of crowd level, entry fee etc to compare and give results to user. Now if we dont convert the values in 0 and 1, entry cost will be more than crown level. For example say entry cost is 15 and crownd level is 2, it just doesnt give perfect solution if not normalised. So the solution is to normalise the values to 0 and 1.  is for worst case adn 1 is for the best case.
-  The components are nomarlized as
-    Interest Match	  0-1 (already)	    Jaccard similarity naturally returns 0-1 - no transformation needed
-    Season Fit	      0-1 (custom)	    Perfect month = 1.0, 1 month off = 0.8, 2 months off = 0.5, 3+ months off = 0.2
-    Crowd Level	      1-5	              Invert (so 1 becomes best) then scale: (6 - crowdLevel) / 4
-    Ticket Cost	      0-20+ OMR	        Cap at 20 OMR (reasonable maximum), then divide by 20
-    Detour Penalty	  0-200+ km        	Cap at 200km (extreme detour), then divide by 200
-    Diversity Bonus	  0-1 (already)	    Ratio of new categories to total categories
-    Since we do normalization, it becomes eaasy to
-    -To have a air comparison as each component contributes based on its weight, not its raw magnitude
-    -Weighted math works as we can multiply weights (0.30) by normalized values (0-1)
-    -Intuitive results as score of 0.75 clearly means "75% of perfect"
+  - Normalization is basically converting scores into 0 and 1. Why requried to convert, bcz we need to take values of crowd level, entry fee etc to compare and give results to user. Now if we dont convert the values in 0 and 1, entry cost will be more than crown level. For example say entry cost is 15 and crownd level is 2, it just doesnt give perfect solution if not normalised. So the solution is to normalise the values to 0 and 1.  is for worst case adn 1 is for the best case.
+  - The components are nomarlized as
+    - Interest Match	  0-1 (already)	    Jaccard similarity naturally returns 0-1 - no transformation needed
+    - Season Fit	      0-1 (custom)	    Perfect month = 1.0, 1 month off = 0.8, 2 months off = 0.5, 3+ months off = 0.2
+    - Crowd Level	      1-5	              Invert (so 1 becomes best) then scale: (6 - crowdLevel) / 4
+    - Ticket Cost	      0-20+ OMR	        Cap at 20 OMR (reasonable maximum), then divide by 20
+    - Detour Penalty	  0-200+ km        	Cap at 200km (extreme detour), then divide by 200
+    - Diversity Bonus	  0-1 (already)	    Ratio of new categories to total categories
+    - Since we do normalization, it becomes eaasy to
+    - To have a air comparison as each component contributes based on its weight, not its raw magnitude
+    - Weighted math works as we can multiply weights (0.30) by normalized values (0-1)
+    - Intuitive results as score of 0.75 clearly means "75% of perfect"
 
 
 #Performance consideration and optimization.
-  all the perfomance happen locally, no backend api calls. 
-  console.time() was implemented on itinenary page to check out performance of the code algorithm. This performance is checked and measured within the browser (google)
-  The reuslts where acchieved as follows (a screen shot has been provided in the following file path - additional\performanceTEST1.png)
-    Itinerary generated in 2.600 ms (first run)
-    Itinerary generated in 0.700 ms
-    Itinerary generated in 0.400 ms
-    Itinerary generated in 0.400 ms
-  The above test was done for 1 day trip. There are multiple speed shown because multiple checks happen at the background.
+  - all the perfomance happen locally, no backend api calls. 
+  - console.time() was implemented on itinenary page to check out performance of the code algorithm. This performance is checked and measured within the browser (google)
+  - The reuslts where acchieved as follows (a screen shot has been provided in the following file path - additional\performanceTEST1.png)
+    - Itinerary generated in 2.600 ms (first run)
+    - Itinerary generated in 0.700 ms
+    - Itinerary generated in 0.400 ms
+    - Itinerary generated in 0.400 ms
+  - The above test was done for 1 day trip. There are multiple speed shown because multiple checks happen at the background.
 
   Test has been done with a 7 days and medium budget 
+
   Results were (screenshot available in following file path - additional\performanceTEST2.png)
-    Itinerary generated in 3.400 ms (first run)
-    Itinerary generated in 0.700 ms
-    Itinerary generated in 0.400 ms
-    Itinerary generated in 0.500 ms
+    - Itinerary generated in 3.400 ms (first run)
+    - Itinerary generated in 0.700 ms
+    - Itinerary generated in 0.400 ms
+    - Itinerary generated in 0.500 ms
   
   The first run was slower which could be due to sloading the codes, compiling the funciton,seeting up memory, etc. SUsequently the second run the performance seem to have a good boost as caches kick in.
 
   Key Optimizations Implemented
+
     Efficient Algorithms
       -Greedy selection with 2-opt optimization runs in O(n³) where n ≤ 5 stops
       -Haversine formula is O(1) per distance calculation
@@ -419,41 +422,43 @@ setup and Installation (```bash)
 
 
 #Limitations and tradeoffs
--The destination dataset is limited. Having more number of destinations can make better accurate results. The itineraries would be showing better results
--No real road distance are used. the challenge requirement was to huse haversine formula to calculate distance. Unfortunately this formula calculates straight path only. and the roads are ofcourse not straight.
--mobile experience would be bad expereince. Everything will be packed.
+- The destination dataset is limited. Having more number of destinations can make better accurate results. The itineraries would be showing better results
+- No real road distance are used. the challenge requirement was to huse haversine formula to calculate distance. Unfortunately this formula calculates straight path only. and the roads are ofcourse not straight.
+- mobile experience would be bad expereince. Everything will be packed.
 
 Addition to the main website, there are 4 other pages that was used for testing. 
-These are the different algorithms use but not combined into 1
--`http://localhost:3000/en/distance-test` - Haversine distance calculator
--`http://localhost:3000/en/score-test` - Multi-objective scoring
--`http://localhost:3000/en/region-test` - Region allocation
--`http://localhost:3000/en/routing-test` - Daily routing with constraints
 
-#Additional test Cases
+These are the different algorithms use but not combined into 1
+- `http://localhost:3000/en/distance-test` - Haversine distance calculator
+- `http://localhost:3000/en/score-test` - Multi-objective scoring
+- `http://localhost:3000/en/region-test` - Region allocation
+- `http://localhost:3000/en/routing-test` - Daily routing with constraints
+
+Additional test Cases
+
   as shown above, there where 4 seperate pages made to test. then these 3 pages were combinied to 1 to generate itinerary.
   1. Distance test
-    1.1 Sultan Qaboos Grand Mosque to Jebel Akhdar
-        Sultan Qaboos Grand Mosque
-          lat: 23.5842,
-          lng: 58.3888,
-        Jebel Akhdar 
-          lat: 22.5000,
-          lng: 58.8000,
-        Now how is this calculated, haverinse has there own formula which i have used in distance.ts file.
-        First step is to convert the values into raddians
-          lat1 = 23.5842 × π/180 = 0.4116 rad
-          lat2 = 23.0667 × π/180 = 0.4026 rad
-          lng1 = 58.3888 × π/180 = 1.0190 rad  
-          lng2 = 57.6500 × π/180 = 1.0062 rad
+    - 1.1 Sultan Qaboos Grand Mosque to Jebel Akhdar
+        - Sultan Qaboos Grand Mosque
+          - lat: 23.5842,
+          - lng: 58.3888,
+        - Jebel Akhdar 
+          - lat: 22.5000,
+          - lng: 58.8000,
+        - Now how is this calculated, haverinse has there own formula which i have used in distance.ts file.
+        - First step is to convert the values into raddians
+          - lat1 = 23.5842 × π/180 = 0.4116 rad
+          - lat2 = 23.0667 × π/180 = 0.4026 rad
+          - lng1 = 58.3888 × π/180 = 1.0190 rad  
+          - lng2 = 57.6500 × π/180 = 1.0062 rad
 
         Second step is to find the difference between both lattitudes and longitutdes
-          dlat = 0.4116 - 0.4026 = 0.0090 rad
-          dlng = 1.0190 - 1.0062 = 0.0128 rad
+          - dlat = 0.4116 - 0.4026 = 0.0090 rad
+          - dlng = 1.0190 - 1.0062 = 0.0128 rad
         
         third step is to apply haversine formula
-          a = sin²(dlat/2) + cos(lat1) × cos(lat2) × sin²(dlng/2)
-          a = sin²(0.0045) + cos(0.4116) × cos(0.4026) × sin²(0.0064)
+          - a = sin²(dlat/2) + cos(lat1) × cos(lat2) × sin²(dlng/2)
+          - a = sin²(0.0045) + cos(0.4116) × cos(0.4026) × sin²(0.0064)
 
           sin(0.0045) ≈ 0.0045 → square = 0.00002025
           cos(0.4116) ≈ 0.9165
@@ -471,77 +476,77 @@ These are the different algorithms use but not combined into 1
           c = 2 × 0.0074
           c = 0.0148 radians
         
-        fifth step is to calculate distance = R*c (R stands for earth's average equatorial radius)
-          R = 6371 km
-          Distance = 6371 × 0.0148 = 94.3 km
-      You can find this results screen shot in the file path 'additiontional\testcase\distanceTest1.1.png' or try yourself in the url 'http://localhost:3000/en/distance-test'
+        - fifth step is to calculate distance = R*c (R stands for earth's average equatorial radius)
+          - R = 6371 km
+          - Distance = 6371 × 0.0148 = 94.3 km
+      - You can find this results screen shot in the file path 'additiontional\testcase\distanceTest1.1.png' or try yourself in the url 'http://localhost:3000/en/distance-test'
 
     1.2 Sultan Qaboos to Sultan Qaboos
-        This test is just to check that the map distance works even if same results are given.
-        The distance comes as 0km. You can find screen shot in the file path additiontional\testcase\distanceTest1.2.png
+      - This test is just to check that the map distance works even if same results are given.
+      - The distance comes as 0km. You can find screen shot in the file path additiontional\testcase\distanceTest1.2.png
 
   2. Distance Test
-    2.1 Perfect Match
-      Input are Month:	March, User Interests: mountain, nature, Destination: Jebel Akhdar
-      Results
-      Interest: mountain,nature vs mountain,nature = 2/2 = 1.0 × 30% = 0.30
-      Season: March in recommended [3,4,5,9,10,11] = 1.0 × 25% = 0.25
-      Crowd: Level 3 → normalized = 0.5 × -15% = -0.075     
-      Cost: 3 OMR → 3/20 = 0.15 × -15% = -0.0225
-      Total = 0.30 + 0.25 - 0.075 - 0.0225 = 0.4525 (45.3%)
-      Screenshot available in file path 'additiontional\testcase\scoreTest2.1.png'
+    - 2.1 Perfect Match
+      - Input are Month:	March, User Interests: mountain, nature, Destination: Jebel Akhdar
+      - Results
+        - Interest: mountain,nature vs mountain,nature = 2/2 = 1.0 × 30% = 0.30
+        - Season: March in recommended [3,4,5,9,10,11] = 1.0 × 25% = 0.25
+        - Crowd: Level 3 → normalized = 0.5 × -15% = -0.075     
+        - Cost: 3 OMR → 3/20 = 0.15 × -15% = -0.0225
+        - Total = 0.30 + 0.25 - 0.075 - 0.0225 = 0.4525 (45.3%)
+        - Screenshot available in file path 'additiontional\testcase\scoreTest2.1.png'
     
     2.2 Poor Match Test
-      Input are Month:	August, User Interests:	beach, Destination:	Jebel Akhdar
-      Resutls
-      Interest: beach vs mountain,nature = 0/2 = 0 × 30% = 0
-      Season: August not in recommended = 0.2 × 25% = 0.05
-      Crowd: Level 3 → 0.5 × -15% = -0.075
-      Cost: 3 OMR → 0.15 × -15% = -0.0225
-      Total = 0 + 0.05 - 0.075 - 0.0225 = -0.0475 → 10.3%
-      Screenshot available in file path 'additiontional\testcase\scoreTest2.2.png'
-      for self test follow the url 'http://localhost:3000/en/distance-test'
+     - Input are Month:	August, User Interests:	beach, Destination:	Jebel Akhdar
+      - Resutls
+      - Interest: beach vs mountain,nature = 0/2 = 0 × 30% = 0
+      - Season: August not in recommended = 0.2 × 25% = 0.05
+      - Crowd: Level 3 → 0.5 × -15% = -0.075
+      - Cost: 3 OMR → 0.15 × -15% = -0.0225
+      - Total = 0 + 0.05 - 0.075 - 0.0225 = -0.0475 → 10.3%
+      - Screenshot available in file path 'additiontional\testcase\scoreTest2.2.png'
+      - for self test follow the url 'http://localhost:3000/en/distance-test'
 
   3. Region Test
-     3 day cultural trip
-      Input are Duration: 3 days, Month: March, Interests: culture, nature.
-      Region Score = (Avg Interest Match × 0.6) + (Avg Season Fit × 0.4)
+     - 3 day cultural trip
+      - Input are Duration: 3 days, Month: March, Interests: culture, nature.
+      - Region Score = (Avg Interest Match × 0.6) + (Avg Season Fit × 0.4)
 
-      Each destination and region score gets calculated.
-      Example
-      For Jebel Akhdar: 
-        User [culture, nature] vs [mountain, nature]
-        Intersection = [nature] → 1
-        Union = [culture, nature, mountain] → 3
-        Score = 1/3 = 0.33
+      - Each destination and region score gets calculated.
+      - Example
+      - For Jebel Akhdar: 
+        - User [culture, nature] vs [mountain, nature]
+        - Intersection = [nature] → 1
+        - Union = [culture, nature, mountain] → 3
+        - Score = 1/3 = 0.33
 
       For Bahla Fort:
-        User [culture, nature] vs [culture]
-        Intersection = [culture] → 1
-        Union = [culture, nature] → 2
-        Score = 1/2 = 0.50
+        - User [culture, nature] vs [culture]
+        - Intersection = [culture] → 1
+        - Union = [culture, nature] → 2
+        - Score = 1/2 = 0.50
 
-      Average Interest = (0.33 + 0.50) / 2 = 0.415
-      Jebel Akhdar: months [3,4,5,9,10,11] → March is IN list → 1.0
-      Bahla Fort: months [10,11,12,1,2,3,4] → March is IN list → 1.0
-      Average Season = (1.0 + 1.0) / 2 = 1.0
+      - Average Interest = (0.33 + 0.50) / 2 = 0.415
+      - Jebel Akhdar: months [3,4,5,9,10,11] → March is IN list → 1.0
+      - Bahla Fort: months [10,11,12,1,2,3,4] → March is IN list → 1.0
+      - Average Season = (1.0 + 1.0) / 2 = 1.0
 
-      Similarly all locations are found. the best match as Day 1 = 2 Days in Dakhiliya and Day 2 = 1 day in Sharqiya.
-      Screenshot available in file path 'additiontional\testcase\regionTest1.png'
-      for self test follow the url 'http://localhost:3000/en/region-test'
+      - Similarly all locations are found. the best match as Day 1 = 2 Days in Dakhiliya and Day 2 = 1 day in Sharqiya.
+      - Screenshot available in file path 'additiontional\testcase\regionTest1.png'
+      - for self test follow the url 'http://localhost:3000/en/region-test'
     
   4. Routing testing
     4.1 Relaxed Routing
-    Input are - Region: Muscat,Days: 1, Intensity: Relaxed (max 3 stops), Month:	November, Interests:	culture, food
-      Start: 9:00 AM
-      Travel to Sultan Mosque: 0 min (starting point)
-      Visit Sultan Mosque: 90 min (9:00-10:30)
-      Travel to Mutrah Souq: 15 min (10:30-10:45)
-      Visit Mutrah Souq: 120 min (10:45-12:45)
-      Return: 15 min (12:45-1:00 PM)
-      Total time: 4 hours, under 6 hour limit
-      Screenshot available in file path 'additiontional\testcase\routingTest4.1.png'
-      for self test follow the url 'http://localhost:3000/en/routing-test'
+    - Input are - Region: Muscat,Days: 1, Intensity: Relaxed (max 3 stops), Month:	November, Interests:	culture, food
+      - Start: 9:00 AM
+      - Travel to Sultan Mosque: 0 min (starting point)
+      - Visit Sultan Mosque: 90 min (9:00-10:30)
+      - Travel to Mutrah Souq: 15 min (10:30-10:45)
+      - Visit Mutrah Souq: 120 min (10:45-12:45)
+      - Return: 15 min (12:45-1:00 PM)
+      - Total time: 4 hours, under 6 hour limit
+      - Screenshot available in file path 'additiontional\testcase\routingTest4.1.png'
+      - for self test follow the url 'http://localhost:3000/en/routing-test'
     
     4.2 Packed Routing
     Input are - Region: Dakhliya,Days: 2, Intensity: Packed (max 5 stops), Month:	March, Interests:	culture, mountain
@@ -555,18 +560,18 @@ These are the different algorithms use but not combined into 1
   All test cases were made individually and surpased with excellence.
 
 ##A compelete generation of itinerary test.
-The inputs are - 
-  Duration: 5 days
-  Budget:	Medium
-  Month:	March
-  Intensity:	Balanced
-  Interests:	culture, nature
-  Saved Interests:	Sultan Mosque, Jebel Akhdar, Wadi Shab
+- The inputs are - 
+  - Duration: 5 days
+  - budget:	Medium
+  - Month:	March
+  - Intensity:	Balanced
+  - Interests:	culture, nature
+  - Saved Interests:	Sultan Mosque, Jebel Akhdar, Wadi Shab
 
 Step 1 - Region Calculation
-  Dakhiliya Region - Destinations:
-    Jebel Akhdar: categories [mountain, nature]
-    Bahla Fort: categories [culture]
+  - Dakhiliya Region - Destinations:
+    - Jebel Akhdar: categories [mountain, nature]
+    - Bahla Fort: categories [culture]
 
     interest match calcualtion
     For Jebel Akhdar:
@@ -608,9 +613,9 @@ Step 1 - Region Calculation
       With Bonus = 0.459 + 0.05 = 0.509 (50.9%)
 
   Sharqiya Region - Destinations:
-    Wadi Shab: categories [nature]
-    Wahiba Sands: categories [desert]
-    Sur: categories [beach, culture, food]
+    - Wadi Shab: categories [nature]
+    - Wahiba Sands: categories [desert]
+    - Sur: categories [beach, culture, food]
 
     interest score
     For Wadi Shab:
@@ -650,11 +655,11 @@ Step 1 - Region Calculation
       Base Score = (0.25 × 0.6) + (1.0 × 0.4) = 0.15 + 0.4 = 0.55
       With Bonus = 0.55 + 0.05 = 0.60 (60%)
 
-  Muscat Region Destinations:
-    Sultan Mosque: categories [culture]
-    Mutrah Souq: categories [culture, food]
-    OAA: [food, culture] 
-    Bandar Al Khairan: [food, mountain, beach] 
+  - Muscat Region Destinations:
+    - Sultan Mosque: categories [culture]
+    - Mutrah Souq: categories [culture, food]
+    - OAA: [food, culture] 
+    - Bandar Al Khairan: [food, mountain, beach] 
 
     inetrest match
     For Sultan Mosque:
@@ -703,11 +708,11 @@ Step 1 - Region Calculation
       With Bonus = 0.414 + 0.05 = 0.464 (46.4%)
 
   Dhofar Region Destinations:
-    Salalah: [nature, beach]
-    Wadi Darbat: [nature, food]
-    Ayn Khoor: [food, nature, mountain]
-    Ayn Athum: [food, nature, mountain]
-    Al Bustan Beach: [food, nature, mountain]
+    - Salalah: [nature, beach]
+    - Wadi Darbat: [nature, food]
+    - Ayn Khoor: [food, nature, mountain]
+    - Ayn Athum: [food, nature, mountain]
+    - Al Bustan Beach: [food, nature, mountain]
 
     interest match
     For Salalah:
@@ -748,27 +753,27 @@ Step 1 - Region Calculation
       Score = 0.249 (24.9%)
 
   step 2 is to rank the regions
-	    Region	      Score
-	    Sharqiya	    0.60
-	    Dakhiliya     0.509
-	    Muscat  	    0.464
-	    Dhofar	      0.249
+	  - Region	      Score
+	  - Sharqiya	    0.60
+	  - Dakhiliya     0.509
+	  - Muscat  	    0.464
+	  - Dhofar	      0.249
     
   step 4 allocation of days
-    Round 1: Sharqiya → Day 1
-    Round 2: Sharqiya → Day 2
-    Round 3: Dakhiliya (for variety) → Day 3
-    Round 4: Dakhiliya → Day 4
-    Round 5: Muscat → Day 5
+    - Round 1: Sharqiya → Day 1
+    - Round 2: Sharqiya → Day 2
+    - Round 3: Dakhiliya (for variety) → Day 3
+    - Round 4: Dakhiliya → Day 4
+    - Round 5: Muscat → Day 5
   
   step 5 routing
-    day 1 (dakhiliya (bahla fort))
-      Distance from region center: 48.4 km, Travel time: 48 minutes
-      09:00 Start and at 09:48 Arrive Bahla Fort
-      09:48-11:48 Visit (120 min)
-      11:48 Return
-      13:24 End
-      Distance: 48.4 km
+    - day 1 (dakhiliya (bahla fort))
+      - Distance from region center: 48.4 km, Travel time: 48 minutes
+      - 09:00 Start and at 09:48 Arrive Bahla Fort
+      - 09:48-11:48 Visit (120 min)
+      - 11:48 Return
+      - 13:24 End
+      - Distance: 48.4 km
     
     day 2 (Dakhiliya (jebel akhder))
       Distance from region center: 36.4 km, travel time: 36 minutes
@@ -799,8 +804,8 @@ Step 1 - Region Calculation
       Distance: 38 km total
   
   step 6, cost calculation
-    Total Distance = 96.8 + 72.8 + 146 + 156 + 38 = 372.4 km
-    Fuel Cost = (372.4 / 12) × 0.240 = 31.033 × 0.240 = 7.4 OMR
+    - Total Distance = 96.8 + 72.8 + 146 + 156 + 38 = 372.4 km
+    - Fuel Cost = (372.4 / 12) × 0.240 = 31.033 × 0.240 = 7.4 OMR
 
     Ticket Costs:
       - Bahla Fort: 2 OMR
