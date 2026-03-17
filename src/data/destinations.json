@@ -163,7 +163,7 @@
       "image": "/images/destinations/wadi-darbat.webp",
       "region": {
         "en": "dhofar",
-        "ar": "الشرقية"
+        "ar": "ظفار"
       },
       "categories": ["nature", "food"],
       "avg_visit_duration_minutes": 150,
@@ -182,7 +182,7 @@
       "image": "/images/destinations/aynkhoor.jpg",
       "region": {
         "en": "dhofar",
-        "ar": "الشرقية"
+        "ar": "ظفار"
       },
       "categories": ["food", "nature","mountain"],
       "avg_visit_duration_minutes": 180,
@@ -220,7 +220,7 @@
       "image": "/images/destinations/albustanbeach.jpg",
       "region": {
         "en": "dhofar",
-        "ar": "الشرقية"
+        "ar": "ظفار"
       },
       "categories": ["food", "nature","mountain"],
       "avg_visit_duration_minutes": 60,
@@ -232,14 +232,14 @@
       "id": "oaa",
       "name": {
         "en": "Oman Auto Mobile Association",
-        "ar": "شاطئ البستان"
+        "ar": "جمعية السيارات العمانية"
       },
       "lat": 23.583556,
       "lng": 58.320924,
       "image": "/images/destinations/oaa.jpg",
       "region": {
         "en": "muscat",
-        "ar": "الشرقية"
+        "ar": "مسقط"
       },
       "categories": ["food", "culture"],
       "avg_visit_duration_minutes": 180,
@@ -251,21 +251,40 @@
       "id": "bandaralkhairan",
       "name": {
         "en": "Bandar Al Khairan",
-        "ar": "شاطئ البستان"
+        "ar": "بندر الخيران"
       },
       "lat": 23.515727, 
       "lng": 58.743305,
       "image": "/images/destinations/bandaralkhairan.jpg",
       "region": {
         "en": "muscat",
-        "ar": "الشرقية"
+        "ar": "مسقط"
       },
       "categories": ["food", "mountain","beach"],
       "avg_visit_duration_minutes": 180,
       "ticket_cost_omr": 0,
       "recommended_months": [1,2,10,11,12],
       "crowd_level": 4
-    }                
+    },
+    {
+      "id": "nziwa",
+      "name": {
+        "en": "Nizwa",
+        "ar": "نزوى"
+      },
+      "lat": 22.915078, 
+      "lng": 57.536834,
+      "image": "/images/destinations/nizwa.jpg",
+      "region": {
+        "en": "dakhiliya",
+        "ar": "الداخلية"
+      },
+      "categories": ["food", "mountain","beach"],
+      "avg_visit_duration_minutes": 180,
+      "ticket_cost_omr": 0,
+      "recommended_months": [1,2,10,11,12],
+      "crowd_level": 1
+    }                 
   ]
 }
 

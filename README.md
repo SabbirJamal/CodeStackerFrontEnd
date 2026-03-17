@@ -52,7 +52,7 @@ This project was built for the CODESTACKER 2026 Frontend Development Challenge. 
 -npm or yarn
 
 
-#Installation (```bash).
+#setup and Installation (```bash).
     1.git clone https://github.com/SabbirJamal/CodeStackerFrontEnd
     
     2.Navigate to project (code could be different based on file location)
@@ -169,11 +169,11 @@ This project was built for the CODESTACKER 2026 Frontend Development Challenge. 
             Dhofar Region Score = (0.415 × 0.6) + (0.2 × 0.4) = 0.249 + 0.08 = 0.329
 
           Just like how for dhofar region, score was achieved same way all region scores gets achieved.
-            Region	       Destinations	          Avg Interest	       Avg Season	       Final Score
+            Region	      Destinations	          Avg Interest	       Avg Season	       Final Score
             Dhofar	    4 destinations	           0.415	              0.20	           0.329
             Sharqiya	  3 destinations	            0.33	              0.80	           0.518
             Dakhiliya	  2 destinations	            0.50	              0.80	           0.620
-            Muscat	     2 destinations	            0.25	              0.80	           0.470
+            Muscat	    2 destinations	            0.25	              0.80	           0.470
 
             After calculation, allocation of days with constraints is requried. the rules are 
               Min regions for 5 days = 2 regions  
@@ -346,19 +346,19 @@ This project was built for the CODESTACKER 2026 Frontend Development Challenge. 
       -Stop adding to route when constraints can't be met
 
 
-Limitations and tradeoffs
+#Limitations and tradeoffs
 -The destination dataset is limited. Having more number of destinations can make better accurate results. The itineraries would be showing better results
 -No real road distance are used. the challenge requirement was to huse haversine formula to calculate distance. Unfortunately this formula calculates straight path only. and the roads are ofcourse not straight.
 -mobile experience would be bad expereince. Everything will be packed.
 
 Addition to the main website, there are 4 other pages that was used for testing. 
 These are the different algorithms use but not combined into 1
--`/en/distance-test` - Haversine distance calculator
--`/en/score-test` - Multi-objective scoring
--`/en/region-test` - Region allocation
--`/en/routing-test` - Daily routing with constraints
+-`http://localhost:3000/en/distance-test` - Haversine distance calculator
+-`http://localhost:3000/en/score-test` - Multi-objective scoring
+-`http://localhost:3000/en/region-test` - Region allocation
+-`http://localhost:3000/en/routing-test` - Daily routing with constraints
 
-Additional test Cases
+#Additional test Cases
   as shown above, there where 4 seperate pages made to test. then these 3 pages were combinied to 1 to generate itinerary.
   1. Distance test
     1.1 Sultan Qaboos Grand Mosque to Jebel Akhdar
@@ -483,7 +483,272 @@ Additional test Cases
   All test cases were made individually and surpased with excellence.
 
 ##A compelete generation of itinerary test.
+The inputs are - 
+  Duration: 5 days
+  Budget:	Medium
+  Month:	March
+  Intensity:	Balanced
+  Interests:	culture, nature
+  Saved Interests:	Sultan Mosque, Jebel Akhdar, Wadi Shab
+
+Step 1 - Region Calculation
+  Dakhiliya Region - Destinations:
+    Jebel Akhdar: categories [mountain, nature]
+    Bahla Fort: categories [culture]
+
+    interest match calcualtion
+    For Jebel Akhdar:
+      User [culture, nature] vs [mountain, nature]
+      Intersection = [nature] → 1
+      Union = [culture, nature, mountain] → 3
+      Score = 1/3 = 0.33
+
+    For Bahla Fort:
+      User [culture, nature] vs [culture]
+      Intersection = [culture] → 1
+      Union = [culture, nature] → 2
+      Score = 1/2 = 0.50
+
+    For Nizwa:
+      User [culture, nature] vs [food, mountain, beach]
+      Intersection = [] → 0
+      Union = [culture, nature, food, mountain, beach] → 5
+      Score = 0/5 = 0
+    
+    Average Interest = (0.33 + 0.50 + 0) / 3 = 0.83 / 3 = 0.277
+
+    season fit
+      Jebel Akhdar: recommended months [3,4,5,9,10,11] → March is IN → 1.0
+      Bahla Fort: recommended months [10,11,12,1,2,3,4] → March is IN → 1.0
+      Nizwa: [1,2,10,11,12] → March is 3 → NOT in list → 0.2
+
+      Average Season = (1.0 + 1.0 + 0.2) / 3 = 2.2 / 3 = 0.733
+
+    saved interest bonus
+      Jebel Akhdar is in saved interests → +0.05
+      Bahla Fort not saved → 0
+      Nizwa not saved → 0
+      Total Bonus = 0.05
+
+
+    Dakhiliya regon score
+      Base Score = (0.277 × 0.6) + (0.733 × 0.4) = 0.166 + 0.293 = 0.459
+      With Bonus = 0.459 + 0.05 = 0.509 (50.9%)
+
+  Sharqiya Region - Destinations:
+    Wadi Shab: categories [nature]
+    Wahiba Sands: categories [desert]
+    Sur: categories [beach, culture, food]
+
+    interest score
+    For Wadi Shab:
+      User [culture, nature] vs [nature]
+      Intersection = [nature] → 1
+      Union = [culture, nature] → 2
+      Score = 1/2 = 0.50
+
+    For Wahiba Sands:
+      User [culture, nature] vs [desert]
+      Intersection = [] → 0
+      Union = [culture, nature, desert] → 3
+      Score = 0/3 = 0
+
+    For Sur:
+      User [culture, nature] vs [beach, culture, food]
+      Intersection = [culture] → 1
+      Union = [culture, nature, beach, food] → 4
+      Score = 1/4 = 0.25
+
+    Average Interest = (0.50 + 0 + 0.25) / 3 = 0.75 / 3 = 0.25
+
+    season fit
+      Wadi Shab: [10,11,12,1,2,3,4] → March IN → 1.0
+      Wahiba Sands: [10,11,12,1,2,3,4] → March IN → 1.0
+      Sur: [10,11,12,1,2,3,4] → March IN → 1.0
+
+      Average Season = (1.0 + 1.0 + 1.0) / 3 = 1.0
+
+    saved interest bonus
+      Wadi Shab is in saved interests → +0.05
+      Wahiba Sands not saved → 0
+      Sur not saved → 0
+      Total Bonus = 0.05
+
+    sharkiya region score
+      Base Score = (0.25 × 0.6) + (1.0 × 0.4) = 0.15 + 0.4 = 0.55
+      With Bonus = 0.55 + 0.05 = 0.60 (60%)
+
+  Muscat Region Destinations:
+    Sultan Mosque: categories [culture]
+    Mutrah Souq: categories [culture, food]
+    OAA: [food, culture] 
+    Bandar Al Khairan: [food, mountain, beach] 
+
+    inetrest match
+    For Sultan Mosque:
+      User [culture, nature] vs [culture]
+      Intersection = [culture] → 1
+      Union = [culture, nature] → 2
+      Score = 1/2 = 0.50
+
+    For Mutrah Souq:
+      User [culture, nature] vs [culture, food]
+      Intersection = [culture] → 1
+      Union = [culture, nature, food] → 3
+      Score = 1/3 = 0.33
+    
+    for oman auto mobile association 
+      User [food,culture] vs [culture,nature] 
+      intersetion = [culture] -> 1
+      ubion = [food, culture, anture]  ->3
+      score 1/3 = 0.33
+
+    for bandar al khairan
+      Useer [food,mountain,beach] vs [culture,nature] 
+      Intersection = [] → 0
+      Union = [food, mountain , beach, food] → 3
+      score 0/5 = 0
+
+      average Interest = (0.50 + 0.33 + 0.33 + 0) / 4 = 1.16 / 4 = 0.29
+
+    Seson fit
+      Sultan Mosque: [10,11,12,1,2,3,4] → March IN → 1.0
+      Mutrah Souq: [1,2,3,4,5,6,7,8,9,10,11,12] → March IN → 1.0
+      OAA: [9,10,11,12] → March is 3 → NOT in → 0.2
+      Bandar: [1,2,10,11,12] → March is 3 → NOT in → 0.2
+
+      Average Season = (1.0 + 1.0 + 0.2 + 0.2) / 4 = 2.4 / 4 = 0.6
+
+    saved interest bonus
+      Sultan Mosque is in saved interests → +0.05
+      Mutrah Souq not saved → 0
+      OAA not saved → 0
+      Bandar not saved → 0
+      Total Bonus = 0.05
+
+    muscat region score
+      base Score = (0.29 × 0.6) + (0.6 × 0.4) = 0.174 + 0.24 = 0.414
+      With Bonus = 0.414 + 0.05 = 0.464 (46.4%)
+
+  Dhofar Region Destinations:
+    Salalah: [nature, beach]
+    Wadi Darbat: [nature, food]
+    Ayn Khoor: [food, nature, mountain]
+    Ayn Athum: [food, nature, mountain]
+    Al Bustan Beach: [food, nature, mountain]
+
+    interest match
+    For Salalah:
+      [culture,nature] vs [nature,beach] → intersection [nature] → 1
+      union [culture,nature,beach] → 3 → 1/3 = 0.33
+
+    For Wadi Darbat:
+      [culture,nature] vs [nature,food] → intersection [nature] → 1
+      union [culture,nature,food] → 3 → 1/3 = 0.33
+
+    For Ayn Khoor:
+      [culture,nature] vs [food,nature,mountain] → intersection [nature] → 1
+      union [culture,nature,food,mountain] → 4 → 1/4 = 0.25
+
+    For Ayn Athum:
+      [culture,nature] vs [food,nature,mountain] → intersection [nature] → 1
+      union [culture,nature,food,mountain] → 4 → 1/4 = 0.25
+
+    For Al Bustan Beach:
+      [culture,nature] vs [food,nature,mountain] → intersection [nature] → 1
+      union [culture,nature,food,mountain] → 4 → 1/4 = 0.25
+
+    Average Interest = (0.33 + 0.33 + 0.25 + 0.25 + 0.25) / 5 = 1.41 / 5 = 0.282
+
+    season fit
+      Salalah: [6,7,8,9] → closest month 6 (3 away) → 0.2
+      Wadi Darbat: [8,9,10] → closest 8 (5 away) → 0.2
+      Ayn Khoor: [9,10,11,12] → closest 9 (6 away) → 0.2
+      Ayn Athum: [9,10,11,12] → closest 9 (6 away) → 0.2
+      Al Bustan Beach: [9,10,11,12] → closest 9 (6 away) → 0.2
+
+      Average Season = (0.2 + 0.2 + 0.2 + 0.2 + 0.2) / 5 = 1.0 / 5 = 0.2
+
+    
+    dhofar region score
+      Score = (0.282 × 0.6) + (0.2 × 0.4)
+      Score = 0.169 + 0.08
+      Score = 0.249 (24.9%)
+
+  step 2 is to rank the regions
+	    Region	      Score
+	    Sharqiya	    0.60
+	    Dakhiliya     0.509
+	    Muscat  	    0.464
+	    Dhofar	      0.249
+    
+  step 4 allocation of days
+    Round 1: Sharqiya → Day 1
+    Round 2: Sharqiya → Day 2
+    Round 3: Dakhiliya (for variety) → Day 3
+    Round 4: Dakhiliya → Day 4
+    Round 5: Muscat → Day 5
   
+  step 5 routing
+    day 1 (dakhiliya (bahla fort))
+      Distance from region center: 48.4 km, Travel time: 48 minutes
+      09:00 Start and at 09:48 Arrive Bahla Fort
+      09:48-11:48 Visit (120 min)
+      11:48 Return
+      13:24 End
+      Distance: 48.4 km
+    
+    day 2 (Dakhiliya (jebel akhder))
+      Distance from region center: 36.4 km, travel time: 36 minutes
+      09:00 Start and 09:36 Arrive Jebel Akhdar
+      09:36-13:36 Visit (240 min)
+      13:36 Return
+      14:12 End
+      Distance: 38.1 km
+
+    day 3 (sharqiya (wadi shab))
+      Distance from region center: 73 km, travel time: 73 minutes
+      09:00 Start and 10:13 Arrive Wadi Shab
+      10:13-13:13 Visit (180 min)
+      13:13 Return, 14:26 End
+      Distance: 145.2 km
+
+    dayb 4 (sharqiya (sur))
+      Distance from region center: 78 km, travel time: 78 minutes
+      09:00 Start, 10:18 Arrive Sur
+      10:18-12:48 Visit (150 min)
+      12:48 Return, 14:06 End
+      Distance: 102.7 km
+
+    day 5 (muscat )(sultan qaboos grand mosque and mutrah souq)
+      09:00 Start at Sultan Mosque, 09:00-10:30 Visit Sultan Mosque (90 min)
+      10:30-10:45 Travel to Mutrah Souq (15 min), 10:45-12:45 Visit Mutrah Souq (120 min)
+      12:45 Return
+      Distance: 38 km total
+  
+  step 6, cost calculation
+    Total Distance = 96.8 + 72.8 + 146 + 156 + 38 = 372.4 km
+    Fuel Cost = (372.4 / 12) × 0.240 = 31.033 × 0.240 = 7.4 OMR
+
+    Ticket Costs:
+      - Bahla Fort: 2 OMR
+      - Jebel Akhdar: 3 OMR
+      - Wadi Shab: 0 OMR
+      - Sur: 0 OMR
+      - Sultan Mosque: 0 OMR
+      - Mutrah Souq: 0 OMR
+      Total Tickets = 5 OMR
+
+    Food Cost = 6 OMR × 5 days = 30 OMR
+
+    Hotel Cost (Medium = 45 OMR/night):
+    45 OMR × 4 nights = 180 OMR
+
+    Total Cost = 7.4 + 5 + 30 + 180 = 222.4 OMR
+    checkout screenshot available in file path 'additiontional\testcase\finalTest.png'. or you can try the checking yourself.
+
+
+    
 
 
 
