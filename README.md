@@ -66,6 +66,74 @@ This project was built for the CODESTACKER 2026 Frontend Development Challenge. 
 
     Go to browser abd paste the url that was achieved for bash or copy paste this url `http://localhost:3000/en`
 
+#architecture overview
+  ##Core Application Files (The Foundation)
+    File Path	                         Purpose	                                        Architecture Role
+      src/app/layout.tsx	            Root layout with HTML structure	                  Foundation of all pages
+      src/app/[locale]/layout.tsx   	Locale-specific layout (English/Arabic)	          Handles RTL/LTR switching
+      src/middleware.ts             	Language detection & routing	                    Redirects to correct locale
+      src/i18n/request.ts	            Internationalization config	                      Loads translations
+      src/i18n/routing.ts	            Route definitions for locales	                    Defines supported languages
+
+  ##SSR Pages (Marketing Site)
+    File Path                                                   	Purpose                                     	reason
+    src/app/[locale]/page.tsx	                          Landing page with hero + categories	        SEO critical, fast initial load
+    src/app/[locale]/destinations/page.tsx	            estination browsing with filters	          Shareable URLs need server rendering
+    src/app/[locale]/destinations/[id]/page.tsx	         ndividual destination details	            Static generation possible
+
+  ##CSR Pages (Interactive Planner)
+    File Path	                                                    Purpose	                             reason
+    src/app/[locale]/plan/page.tsx	                  Itinerary form with user inputs	      Needs client-side interactivity
+    src/app/[locale]/plan/results/page.tsx	          Generated itinerary display	          Maps require browser
+    src/app/[locale]/saved/page.tsx	                  Saved interests page	                Dynamic data from localStorage
+
+  ##Test Pages (Algorithm Verification)
+    File Path	                                                          Purpose
+      src/app/[locale]/distance-test/page.tsx	            haversine distance calculator test
+      src/app/[locale]/score-test/page.tsx	              Multi-objective scoring test
+      src/app/[locale]/region-test/page.tsx	                Region allocation test
+      src/app/[locale]/routing-test/page.tsx	              Daily routing constraints test
+
+  ##Reusable Components     
+    File Path	                                            Purpose
+      src/components/LanguageSwitcher.tsx	        English/Arabic toggle
+      src/components/DestinationCard.tsx	        reusable destination card with image
+      src/components/CategoryCard.tsx	            Category display card
+      src/components/SaveButton.tsx	            Save/unsave toggle with localStorage
+      src/components/Map.tsx	                   ingle destinataion map
+      src/components/ItineraryMap.tsx	           Multi-stop route map
+      src/components/ItineraryForm.tsx	         user input form
+      src/components/LoadingSpinner.tsx	          Lottie animation loader
+
+  ##State Management
+          File Path	Purpose	                                         Technology
+      src/store/useInterestsStore.ts	    Saved interests with localStorage	Zustand + persist middleware
+
+  ##Core Algorithms (The Brain)
+      File Path	                                Purpose	Key                                    Functions
+      src/lib/distance.ts             	Haversine calculations	              haversineDistance(), totalRouteDistance()
+      src/lib/scoring.ts	              Multi-objective scoring	               calculateDestinationScore(), Jaccard similarity
+      src/lib/region-planner.ts	        Region allocation	                    calculateRegionScores(), allocateRegionDays()
+      src/lib/daily-router.ts	          Daily routing with 2-opt	          planDailyRoute(), optimizeRouteWith2Opt()
+      src/lib/itinerary-generator.ts	  Main orchestration	                  generateItinerary(), budget calculations
+
+  ##Data & Types
+    File Path                                   	Purpose
+    src/data/destinations.json	      All destination data (15 destinations)
+    src/types/destination.ts	        TypeScript interfaces for destinations
+    src/types/itinerary.ts	          TypeScript interfaces for itineraries
+
+  Internationalization
+    File Path	                        Purpose
+    messages/en.json	          English translations
+      messages/ar.json	      Arabic translations (RTL support)
+
+  Configuration Files
+      File                                  Path	Purpose
+    next.config.ts	Next.js       configuration with i18n plugin
+      tailwind.config.ts	        Tailwind CSS with Oman theme colors
+      tsconfig.json	              TypeScript configuration
+      package.json	               Dependencies and scripts
 
 #State Management Approach.
   The state management approach choosen for this project is Zustand. The reason of choosing zustand is its very simple, persistence and lightweight. For this project the only global state management required is the s'saved interests'. Remaing all are urls, form inputs, generative itinerary  and language prefereances. How zustand works is very simple:
@@ -140,10 +208,10 @@ This project was built for the CODESTACKER 2026 Frontend Development Challenge. 
       formula: Region Score = (Avg Interest Match × 0.6) + (Avg Season Fit × 0.4)
       ###results:
         Dhofar Region Destinations:
-         Salalah: categories ["nature", "beach"], months [6,7,8,9]
-         Wadi Darbat: categories ["nature", "food"], months [8,9,10]
-         Ayn Khoor: categories ["food", "nature", "mountain"], months [9,10,11,12]
-         Ayn Athum: categories ["food", "nature", "mountain"], months [9,10,11,12]
+         Salalah: categories ["nature", "beach"], months [6,7,8,9].
+         Wadi Darbat: categories ["nature", "food"], months [8,9,10].
+         Ayn Khoor: categories ["food", "nature", "mountain"], months [9,10,11,12].
+         Ayn Athum: categories ["food", "nature", "mountain"], months [9,10,11,12].
         
          Interest match calcualtion (Jaccard Similarity).
            Jaccard(user_categories, dest_categories) = intersection / union

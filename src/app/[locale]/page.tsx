@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import destinationsData from '@/data/destinations.json';
 import { Destination } from '@/types/destination';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -12,9 +13,14 @@ import LottieAnimation from '@/components/LottieAnimation';
 
 export default function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = React.use(params);
+  const router = useRouter();
   const { destinations } = destinationsData as { destinations: Destination[] };
   const t = useTranslations('Home');
   const appT = useTranslations('App');
+  
+  // Loading state
+  const [isNavigating, setIsNavigating] = useState(false);
+  const [navigationTarget, setNavigationTarget] = useState('');
   
   // slideshow state
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -22,7 +28,7 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
   // carousel state
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  // array of hero images (update these filenames to match your actual files)
+  // array of hero images
   const heroImages = [
     { url: '/images/hero/jebel-akhdar.jpg', alt: 'Jebel Akhdar Mountains' },
     { url: '/images/hero/wahiba-sands.jpg', alt: 'Wahiba Sands Desert' },
@@ -31,6 +37,17 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
     { url: '/images/hero/sultan-mosque.jpg', alt: 'Sultan Qaboos Grand Mosque' },
     { url: '/images/hero/sur.jpg', alt: 'Sur Beach' },
   ];
+  
+  // Navigation handler with loading
+  const handleNavigation = (path: string, target: string) => {
+    setIsNavigating(true);
+    setNavigationTarget(target);
+    
+    // Small delay to show loading animation
+    setTimeout(() => {
+      router.push(path);
+    }, 800);
+  };
   
   // auto-rotate hero images every 5 seconds
   useEffect(() => {
@@ -52,7 +69,7 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
   };
   
   // get all destinations for featured carousel
-  const featuredDestinations = destinations; // Use all 8 destinations
+  const featuredDestinations = destinations;
   
   // carousel navigation handlers
   const totalSlides = Math.ceil(featuredDestinations.length / 4);
@@ -69,6 +86,25 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
     );
   };
   
+  // Show loading screen if navigating
+  if (isNavigating) {
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100]">
+        <div className="bg-white rounded-lg p-8 text-center">
+          <LottieAnimation 
+            animationPath="/animations/loading2.json"
+            className="w-64 h-64 mx-auto"
+          />
+          <p className="text-gray-700 mt-4 text-lg">
+            {locale === 'en' 
+              ? `Loading ${navigationTarget}...` 
+              : `جاري تحميل ${navigationTarget === 'destinations' ? 'الوجهات' : 'الرحلة'}...`}
+          </p>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <main className="min-h-screen bg-zinc-50">
       {/* Navigation Bar */}
@@ -79,18 +115,24 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
               <a href={`/${locale}`} className="text-2xl font-bold text-oman-green">🇴🇲 {appT('title')}</a>
             </div>
             <div className="flex items-center gap-4">
-              <a href={`/${locale}/destinations`} className="text-gray-700 hover:text-oman-green">
+              <button 
+                onClick={() => handleNavigation(`/${locale}/destinations`, 'destinations')}
+                className="text-gray-700 hover:text-oman-green cursor-pointer"
+              >
                 {locale === 'en' ? 'Destinations' : 'الوجهات'}
-              </a>
-              <a 
-                href={`/${locale}/plan`}
-                className="bg-oman-green text-black px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition"
+              </button>
+              <button 
+                onClick={() => handleNavigation(`/${locale}/plan`, 'plan')}
+                className="bg-oman-green text-black px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition cursor-pointer"
               >
                 {locale === 'en' ? 'Plan Trip' : 'خطط لرحلتك'}
-              </a>
-              <a href={`/${locale}/saved`} className="text-gray-700 hover:text-oman-green">
+              </button>
+              <button 
+                onClick={() => handleNavigation(`/${locale}/saved`, 'saved')}
+                className="text-gray-700 hover:text-oman-green cursor-pointer"
+              >
                 {locale === 'en' ? 'Saved' : 'المحفوظات'}
-              </a>
+              </button>
               <LanguageSwitcher />
             </div>
           </div>
@@ -149,12 +191,12 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
                 ? 'From golden deserts to turquoise waters, experience authentic Arabian hospitality'
                 : 'من الصحاري الذهبية إلى المياه الفيروزية، استمتع بتجربة الضيافة العربية الأصيلة'}
             </p>
-            <a 
-              href={`/${locale}/plan`}
-              className="bg-white text-oman-green px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-300 transition shadow-lg inline-block"
+            <button 
+              onClick={() => handleNavigation(`/${locale}/plan`, 'plan')}
+              className="bg-white text-oman-green px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-300 transition shadow-lg inline-block cursor-pointer"
             >
               {locale === 'en' ? 'Plan Your Trip →' : 'خطط لرحلتك ←'}
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -287,12 +329,12 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
               ? 'Start planning your personalized itinerary today'
               : 'ابدأ التخطيط لرحلتك المخصصة اليوم'}
           </p>
-          <a 
-            href={`/${locale}/plan`}
-            className="bg-oman-green text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-lg inline-block"
+          <button 
+            onClick={() => handleNavigation(`/${locale}/plan`, 'plan')}
+            className="bg-oman-green text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 transition shadow-lg inline-block cursor-pointer"
           >
             {locale === 'en' ? 'Plan Your Trip Now' : 'خطط لرحلتك الآن'}
-          </a>
+          </button>
         </div>
       </div>
 
@@ -314,9 +356,30 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
             <div className="col-span-1">
               <h4 className="font-semibold mb-4 text-white">{locale === 'en' ? 'Quick Links' : 'روابط سريعة'}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href={`/${locale}/destinations`} className="hover:text-white cursor-pointer">{locale === 'en' ? 'Destinations' : 'الوجهات'}</a></li>
-                <li><a href={`/${locale}/plan`} className="hover:text-white cursor-pointer">{locale === 'en' ? 'Plan Trip' : 'خطط لرحلتك'}</a></li>
-                <li><a href={`/${locale}/saved`} className="hover:text-white cursor-pointer">{locale === 'en' ? 'Saved' : 'المحفوظات'}</a></li>
+                <li>
+                  <button 
+                    onClick={() => handleNavigation(`/${locale}/destinations`, 'destinations')}
+                    className="hover:text-white cursor-pointer"
+                  >
+                    {locale === 'en' ? 'Destinations' : 'الوجهات'}
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => handleNavigation(`/${locale}/plan`, 'plan')}
+                    className="hover:text-white cursor-pointer"
+                  >
+                    {locale === 'en' ? 'Plan Trip' : 'خطط لرحلتك'}
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => handleNavigation(`/${locale}/saved`, 'saved')}
+                    className="hover:text-white cursor-pointer"
+                  >
+                    {locale === 'en' ? 'Saved' : 'المحفوظات'}
+                  </button>
+                </li>
               </ul>
             </div>
             
